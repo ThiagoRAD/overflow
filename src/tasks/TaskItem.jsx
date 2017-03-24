@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import './TaskItem.css'
 
 const TaskItem = ({task, isStaged}) => {
   const navigate = useNavigate()
@@ -10,7 +11,7 @@ const TaskItem = ({task, isStaged}) => {
 
   return <div className="task-item" onClick={onClick}>
     <h3>{task.name}</h3>
-    <p>Duration: {task.duration} minutes</p>
+    <p>Goal: {task.duration} minutes</p>
   </div>
 }
 
