@@ -6,10 +6,12 @@ import useTagsStore from './useTagsStore';
 const useTaskStore = create(
   persist(
     (set) => ({
+      hasHydrated: false,
       tasks: [],
       staging: [],
       archive: [],
       stageSize: 5,
+      setHasHydrated: (hasHydrated) => set(() => ({ hasHydrated })),
       decreaseStageSize: () => set((state) => ({stageSize: Math.max(1, state.stageSize - 0.5)})),
       increaseStageSize: () => set((state) => ({stageSize: Math.min(state.tasks.length, state.stageSize + 2.5)})),
       addTask: (task) => set((state) => ({tasks: [...state.tasks, task]})),
@@ -66,6 +68,18 @@ const useTaskStore = create(
     {
       name: 'overflow-task-storage',
       storage: createJSONStorage(() => dbStorage),
+      onRehydrateStorage: () => (state) => {
+        (async () => {
+          const updatedTasks = state?.tasks?.map((task) => {
+            if(task.type === undefined) {
+              task.type = 'Cyclic';
+            }
+            return task;
+          });
+          useTaskStore.setState({tasks: updatedTasks});
+          useTaskStore.getState().setHasHydrated(true);
+        })()
+      }
     },
   ),
 );
