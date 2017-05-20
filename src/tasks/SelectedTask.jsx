@@ -2,6 +2,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
+import { useWakeLock } from 'react-screen-wake-lock';
 import useNotification from '../useNotification';
 
 const SelectedTask = () => {
@@ -9,13 +10,23 @@ const SelectedTask = () => {
   const {tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder, removeTask} = useTaskStore();
   const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
-  const wakeLock = useRef(null);
   const navigate = useNavigate();
   const notification = useNotification();
 
   const totalTime = task.duration * 60 * 1000;
 
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
+
+  const { request } = useWakeLock({
+    onRequest: () => alert('Screen Wake Lock: requested!'),
+    onError: () => alert('An error happened 💥'),
+    onRelease: () => alert('Screen Wake Lock: released!'),
+    reacquireOnPageVisible: true,
+  });
+
+  useEffect(() => {
+    request();
+  }, []);
 
   const completeTask = () => {
     const updatedTask = {...task, timeRemaining: totalTime};
@@ -67,34 +78,6 @@ const SelectedTask = () => {
       timerFinishedEvent();
     }
   }, [task.ongoing, task.timeRemaining]);
-
-  const acquireWakeLock = async () => {
-    try {
-      wakeLock.current = await navigator.wakeLock.request('screen');
-      console.log('Wake Lock acquired');
-    } catch (err) {
-      console.error(`${err.name}, ${err.message}`);
-    }
-  };
-  const releaseWakeLock = async () => {
-    if (wakeLock) {
-      await wakeLock.release();
-      wakeLock.current = null;
-      console.log('Wake Lock released');
-    }
-  };
-  
-  useEffect(() => {
-    acquireWakeLock();
-    return () => {
-      releaseWakeLock()
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, []);
-
-  
 
   const handleStart = () => {
     updateTask({...task, ongoing: true});
