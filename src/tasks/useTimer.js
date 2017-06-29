@@ -11,7 +11,7 @@ export const useTimer = () => {
 
   const timerFinishedEvent = (task) => {
     const tackledAt = new Date().getTime();
-    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0, lastTime: null};
+    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
     updateTask(updatedTask);
     notification.notify(`Task "${task.name}" completed!`);
   };
