@@ -1,10 +1,11 @@
+import LiquidGlass from 'liquid-glass-react'
 import CreateTaskButton from '../components/CreateTaskButton'
 import TaskList from './TaskList'
 
 const NextTasks = () => {
 
   return (
-    <div className="next-tasks">
+    <div>
       <CreateTaskButton />
       <br />
       <TaskList />
