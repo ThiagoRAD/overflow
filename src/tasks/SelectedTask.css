@@ -72,8 +72,9 @@
 }
 
 .timer-text {
-  font-size: 32px;
+  font-size: 3.3rem;
   font-weight: 600;
+  font-family: 'Courier New', Courier, monospace;
   fill: currentColor;
 }
 
