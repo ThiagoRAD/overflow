@@ -40,7 +40,7 @@ const Pomodoro = ({task}) => {
           r='120'
           fill='none'
           stroke='#111'
-          strokeWidth='19'
+          strokeWidth='20'
           strokeLinecap='round'
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
