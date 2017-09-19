@@ -33,11 +33,15 @@ const useTaskStore = create(
           return { tasks: sortedTasks };
         });
       },
-      updateTaskTimeRemaining: (id, diff) =>
+      updateTaskTimeRemaining: (id) =>
         set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === id ? { ...task, timeRemaining: task.timeRemaining - diff } : task
-          ),
+          tasks: state.tasks.map((task) => {
+            if(task.id !== id) return task;
+            const currentTime = new Date().getTime();
+            const lastTime = task.lastTime || (currentTime - 1000);
+            const diff = currentTime - lastTime;
+            return { ...task, timeRemaining: task.timeRemaining - diff, lastTime: currentTime };
+          }),
         })),
       updateTask: (updatedTask) =>
         set((state) => ({
