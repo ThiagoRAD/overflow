@@ -22,7 +22,6 @@ const SelectedTask = () => {
     if(task == tasks[0]) increaseStageSize()
     else decreaseStageSize()
     reorder()
-    notification.notify(`Task "${task.name}" completed!`)
     navigate('/')
   }
 
@@ -32,6 +31,7 @@ const SelectedTask = () => {
     const tackledAt = new Date().getTime()
     const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0}
     updateTask(updatedTask)
+    notification.notify(`Task "${task.name}" completed!`)
   }
 
   const startTimer = () => {
