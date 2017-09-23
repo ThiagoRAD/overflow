@@ -7,14 +7,14 @@ const useTagsStore = create(
     (set) => ({
       tags: [],
       createTag: (tag) => set((state) => ({ tags: [...state.tags, tag] })),
-      deleteTag: (name) => set((state) => ({ tags: state.tags.filter((tag) => tag.name !== name) })),
-      toggleTagCollapse: (name) => set((state) => ({
-        tags: state.tags.map((tag) => (tag.name === name ? { ...tag, collapsed: !tag.collapsed } : tag)),
+      deleteTag: (id) => set((state) => ({ tags: state.tags.filter((tag) => tag.id !== id) })),
+      toggleTagCollapse: (id) => set((state) => ({
+        tags: state.tags.map((tag) => (tag.id === id ? { ...tag, collapsed: !tag.collapsed } : tag)),
       })),
-      addTaskToTag: (tagName, taskId) => set((state) => ({
+      addTaskToTag: (tagId, taskId) => set((state) => ({
         tags: state.tags.map((tag) => {
           console.log(state.tags)
-          if(tag.name !== tagName) return tag;
+          if(tag.id !== tagId) return tag;
           const existingIds = tag.tasks
           if(existingIds.includes(taskId)) return { ...tag, tasks: existingIds }
           return { ...tag, tasks: [...existingIds, taskId] }
