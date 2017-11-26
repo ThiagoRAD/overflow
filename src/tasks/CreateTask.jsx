@@ -13,7 +13,9 @@ const CreateTask = () => {
   const createTask = (e) => {
     e.preventDefault()
     const id = crypto.randomUUID()
-    addTask({ id, name, duration, importance, tackledAt: new Date().getTime() })
+    const tackledAt = new Date().getTime()
+    
+    addTask({ id, name, duration, importance, tackledAt })
     reorder()
     navigate('/')
   }
