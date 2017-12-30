@@ -18,7 +18,7 @@ const SelectedTask = () => {
   const requestWakeLock = async () => {
     try {
       wakeLockRef.current = await navigator.wakeLock.request('screen');
-      alert(wakeLockRef.current)
+      alert(wakeLockRef.current.released)
       alert('Wake Lock is active!');
       wakeLockRef.current.addEventListener('release', () => {
         alert('Wake Lock was released');
@@ -28,16 +28,6 @@ const SelectedTask = () => {
       alert(`${err.name}, ${err.message}`);
     }
   };
-
-  useEffect(() => {
-    requestWakeLock();
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        alert('making request');
-        requestWakeLock();
-      }
-    });
-  }, []);
 
   const completeTask = () => {
     const updatedTask = {...task, timeRemaining: totalTime};
@@ -91,6 +81,7 @@ const SelectedTask = () => {
   }, [task.ongoing, task.timeRemaining]);
 
   const handleStart = () => {
+    requestWakeLock();
     updateTask({...task, ongoing: true});
   };
 
