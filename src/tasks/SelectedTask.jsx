@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import useNotification from '../useNotification';
@@ -7,6 +7,7 @@ import useNotification from '../useNotification';
 const SelectedTask = () => {
   const id = useParams().id;
   const {tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder, removeTask} = useTaskStore();
+  const [finished, setFinished] = useState(false);
   const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
@@ -42,6 +43,8 @@ const SelectedTask = () => {
   };
 
   const timerFinishedEvent = () => {
+    setFinished(true)
+    if(finished) return;
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     const tackledAt = new Date().getTime();
