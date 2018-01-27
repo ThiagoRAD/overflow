@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import dbStorage from './dbStorage'
 
-const tagsStore = create(
+const useTagsStore = create(
   persist(
     (set) => ({
       tags: [],
@@ -29,4 +29,4 @@ const tagsStore = create(
   ) 
 );
 
-export default tagsStore;
+export default useTagsStore;
