@@ -14,7 +14,7 @@ const TaskList = () => {
   })
   const lastTasks = tasks.slice(parseInt(stageSize))
   return (
-    <div className='p-4'>
+    <div className='p-4 pt-0 flex flex-col gap-4'>
       {firstTasks.map((task) => (
             <TaskItem key={task.id} task={task} isStaged />
       ))}
