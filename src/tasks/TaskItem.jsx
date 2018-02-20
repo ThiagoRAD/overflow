@@ -23,8 +23,8 @@ const TaskItem = ({ task }) => {
         <p className="text-xs opacity-70">Goal: {task.duration} minutes</p>
       </div>
       <div className="flex items-center gap-2 text-sm">
-        {task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}
-        <div className="w-12 h-12">
+        <div className="w-12 h-12 relative">
+          <div className='absolute right-5 w-15 text-[0.4vw]'>{task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}</div>
           <Pomodoro task={task} />
         </div>
       </div>
