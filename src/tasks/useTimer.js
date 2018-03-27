@@ -38,13 +38,10 @@ export const useTimer = () => {
   };
 
   useEffect(() => {
+    startTimer();
     return () => {
       clearTimer();
     }
   }, [])
-
-  useEffect(() => {
-    startTimer();
-  }, [tasks])
 
 }
