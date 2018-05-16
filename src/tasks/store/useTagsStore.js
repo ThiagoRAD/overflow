@@ -2,14 +2,39 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import dbStorage from './dbStorage'
 
-const normalizeTag = (tag = {}) => ({
-  ...tag,
-  id: tag.id ?? crypto.randomUUID(),
-  tasks: Array.isArray(tag.tasks) ? tag.tasks : [],
-  collapsed: Boolean(tag.collapsed),
-});
+const getPersistedTaskIds = async () => {
+  try {
+    const persistedTasks = await dbStorage.getItem('overflow-task-storage');
+    if (!persistedTasks) return null;
 
-const normalizeTags = (tags = []) => tags.map(normalizeTag);
+    const parsedTasks = typeof persistedTasks === 'string'
+      ? JSON.parse(persistedTasks)
+      : persistedTasks;
+
+    const tasks = parsedTasks?.state?.tasks;
+    if (!Array.isArray(tasks)) return null;
+
+    return new Set(tasks.map((task) => task?.id).filter(Boolean));
+  } catch {
+    return null;
+  }
+};
+
+const normalizeTag = (tag = {}, existingTaskIds) => {
+  const taskIds = Array.isArray(tag.tasks) ? tag.tasks : [];
+  const filteredTaskIds = existingTaskIds instanceof Set
+    ? taskIds.filter((taskId) => existingTaskIds.has(taskId))
+    : taskIds;
+
+  return {
+    ...tag,
+    id: tag.id ?? crypto.randomUUID(),
+    tasks: filteredTaskIds,
+    collapsed: Boolean(tag.collapsed),
+  };
+};
+
+const normalizeTags = (tags = [], existingTaskIds) => tags.map((tag) => normalizeTag(tag, existingTaskIds));
 
 const useTagsStore = create(
   persist(
@@ -35,7 +60,7 @@ const useTagsStore = create(
           return { ...tag, tasks: existingIds.filter(id => id !== taskId) }
         })
       })),
-      setTags: (tags) => set(() => ({ tags: normalizeTags(tags) })),
+      setTags: (tags, existingTaskIds) => set(() => ({ tags: normalizeTags(tags, existingTaskIds) })),
       setHasHydrated: (hasHydrated) => set(() => ({ hasHydrated })),
     }),
     {
@@ -43,6 +68,15 @@ const useTagsStore = create(
       storage: createJSONStorage(() => dbStorage),
       onRehydrateStorage: () => (state) => {
         state?.setTags(state.tags ?? []);
+
+        (async () => {
+          const existingTaskIds = await getPersistedTaskIds();
+          if (!(existingTaskIds instanceof Set)) return;
+
+          const currentTags = useTagsStore.getState().tags ?? [];
+          useTagsStore.getState().setTags(currentTags, existingTaskIds);
+        })();
+
         state?.setHasHydrated(true);
       },
     }
