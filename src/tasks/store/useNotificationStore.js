@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import dbStorage from './dbStorage'
 
 const notificationStore = create(
   persist(
@@ -9,6 +10,7 @@ const notificationStore = create(
     }),
     {
       name: 'overflow-notification-storage',
+      storage: createJSONStorage(() => dbStorage),
     }
   ) 
 );
