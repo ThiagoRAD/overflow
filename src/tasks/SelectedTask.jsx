@@ -1,9 +1,10 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import Pomodoro from './Pomodoro'
 import { BiArrowBack, BiTrash } from 'react-icons/bi'
+import { useWakeLock } from './useWakeLock';
 
 const SelectedTask = () => {
   const id = useParams().id;
@@ -11,18 +12,7 @@ const SelectedTask = () => {
   const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
-  
-  const wakeLockRef = useRef(null);
-  const requestWakeLock = async () => {
-    try {
-      wakeLockRef.current = await navigator.wakeLock.request('screen');
-    } catch (err) {
-      alert(`${err.name}, ${err.message}`);
-    }
-  };
-
-  
-  
+  const wakeLock = useWakeLock()
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete "${task.name}"?`)) {
@@ -34,13 +24,19 @@ const SelectedTask = () => {
   };
 
   const handleStart = () => {
-    requestWakeLock();
     updateTask({...task, ongoing: true});
   };
 
   const handlePause = () => {
     updateTask({...task, ongoing: false, lastTime: null});
   }; 
+
+  useEffect(() => {
+    wakeLock.requestWakeLock();
+    return () => {
+      wakeLock.releaseWakeLock();
+    };
+  }, []);
 
   return (
     <div className='selected-task'>
