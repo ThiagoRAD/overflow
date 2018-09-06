@@ -14,7 +14,8 @@ const CreateTask = () => {
   const navigate = useNavigate()
 
   const update = () => {
-    updateTask({ ...task, name, duration, importance, type })
+    const timeRemaining = duration * 60 * 1000
+    updateTask({ ...task, name, duration, importance, type, timeRemaining })
     navigate('/')
   }
 
