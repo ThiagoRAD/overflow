@@ -10,10 +10,11 @@ const CreateTask = () => {
   const [name, setName] = useState(task ? task.name : '')
   const [duration, setDuration] = useState(task ? task.duration : 30)
   const [importance, setImportance] = useState(task ? task.importance : 3)
+  const [type, setType] = useState(task ? task.type : 'Cyclic')
   const navigate = useNavigate()
 
   const update = () => {
-    updateTask({ ...task, name, duration, importance })
+    updateTask({ ...task, name, duration, importance, type })
     navigate('/')
   }
 
@@ -24,7 +25,7 @@ const CreateTask = () => {
     const timeRemaining = duration * 60 * 1000
     const ongoing = false
     
-    addTask({ id, name, duration, importance, tackledAt, timeRemaining, ongoing })
+    addTask({ id, name, duration, importance, type, tackledAt, timeRemaining, ongoing })
     reorder()
     navigate(-1)
   }
@@ -56,6 +57,13 @@ const CreateTask = () => {
         </div>
 
         <div className="form-group">
+          <label>Type: {type}</label>
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="Cyclic">Cyclic</option>
+            <option value="Daily">Daily</option>
+          </select>
+        </div>
+        <div className="form-group">
           <label>Importance: {importance}</label>
           <input
             type="range"
@@ -69,7 +77,7 @@ const CreateTask = () => {
 
         <div className="button-group">
           <button type="submit" className="btn btn-primary">
-            Create Task
+            {task ? 'Update Task' : 'Create Task'}
           </button>
           <button type="button" onClick={() => navigate('/')} className="btn btn-secondary">
             Cancel
