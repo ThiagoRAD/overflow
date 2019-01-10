@@ -16,14 +16,14 @@ const Pomodoro = ({task}) => {
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
-  const { color, pomodoroShadow, outlinePomodoroShadow } = useTaskColor(task)
+  const { color, pomodoroShadow, outlinePomodoroShadow, shadow } = useTaskColor(task)
 
   const shadowStyle = {
-    filter: `drop-shadow(${pomodoroShadow})`,
+    filter: `drop-shadow(${pomodoroShadow}) `,
   }
 
   const shadowStyle2 = {
-    filter: `drop-shadow(${outlinePomodoroShadow})`,
+    filter: `drop-shadow(${outlinePomodoroShadow}) drop-shadow(${shadow})`,
   }
 
   return (
@@ -50,6 +50,7 @@ const Pomodoro = ({task}) => {
           color={color}
           textAnchor='middle'
           dominantBaseline='middle'
+          style={{ textShadow: shadow }}
         >
           {formatTime(task.timeRemaining)}
         </text>
