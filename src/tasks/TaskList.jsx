@@ -1,7 +1,6 @@
 import useTaskStore from './store/useTaskStore';
 import TaskItem from './TaskItem';
-
-
+import './TaskList.css';
 
 const TaskList = () => {
   const {tasks, stageSize} = useTaskStore();
