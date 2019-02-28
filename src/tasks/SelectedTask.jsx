@@ -76,6 +76,10 @@ const SelectedTask = () => {
     if (task.timeRemaining <= 0) {
       timerFinishedEvent();
     }
+    return () => {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, [task.ongoing, task.timeRemaining]);
 
   const handleStart = () => {
