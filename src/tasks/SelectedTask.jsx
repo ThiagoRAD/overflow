@@ -18,13 +18,7 @@ const SelectedTask = () => {
   const requestWakeLock = async () => {
     try {
       wakeLockRef.current = await navigator.wakeLock.request('screen');
-      alert(wakeLockRef.current.released)
-      alert('Wake Lock is active!');
-      wakeLockRef.current.addEventListener('release', () => {
-        alert('Wake Lock was released');
-      });
     } catch (err) {
-      // Handle error cases
       alert(`${err.name}, ${err.message}`);
     }
   };
@@ -104,9 +98,6 @@ const SelectedTask = () => {
       <div className='task-header'>
         <button className='back-button' onClick={() => navigate('/')}>
           ← Back
-        </button>
-        <button className='back-button' onClick={requestWakeLock}>
-          🔒 Wake Lock
         </button>
         <button className='delete-button' onClick={handleDelete}>
           🗑️ Delete
