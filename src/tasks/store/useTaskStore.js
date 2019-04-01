@@ -1,15 +1,37 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+const importanceWeight = {
+  1: 1,
+  2: 1.2,
+  3: 1.5,
+  4: 1.8,
+  5: 2,
+};
+
 const useTaskStore = create(
   persist(
     (set) => ({
       tasks: [],
+      staging: [],
       stageSize: 5,
       decreaseStageSize: () => set((state) => ({ stageSize: Math.max(1, state.stageSize - 1) })),
       increaseStageSize: () => set((state) => ({ stageSize: Math.min(5, state.stageSize + 1) })),
-      addTask: (tasks) => set((state) => ({ tasks: [...state.tasks, ...tasks] })),
+      addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
       removeTask: (id) => set((state) => ({ tasks: state.tasks.filter((task) => task.id !== id) })),
+      reorder: () => {
+        set((state) => {
+          const sortedTasks = [...state.tasks].sort((a, b) => {
+            const today = new Date().getTime();
+            const aDifference = today - a.tackledAt;
+            const bDifference = today - b.tackledAt;
+            const aUrgency = aDifference * importanceWeight[a.importance];
+            const bUrgency = bDifference * importanceWeight[b.importance];
+              return bUrgency - aUrgency;
+          });
+          return { tasks: sortedTasks };
+        });
+      },
       updateTask: (updatedTask) =>
         set((state) => ({
           tasks: state.tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
