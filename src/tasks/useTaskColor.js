@@ -2,7 +2,8 @@ export const useTaskColor = (task) => {
   
   const baseColor = task.color || "#ffffff"
   const targetColor = '#000000'
-  const percentage = (Math.min(task.timesCompleted ?? 0, 100)) / 100
+  // const percentage = (Math.min(task.timesCompleted ?? 0, 100)) / 100
+  const percentage = 0
 
   const getAverage = (a, b, percentage) => {
     return Math.round(a + (b - a) * percentage)
@@ -11,18 +12,6 @@ export const useTaskColor = (task) => {
     const base = parseInt(baseColor.slice(component, component + 2), 16)
     const target = parseInt(targetColor.slice(component, component + 2), 16)
     return getAverage(base, target, percentage)
-  }
-  const getColorComponentInverted = (component) => {
-    const base = parseInt(baseColor.slice(component, component + 2), 16)
-    const target = parseInt(targetColor.slice(component, component + 2), 16)
-    return getAverage(target, base, percentage)
-  }
-
-  const invertedColor = () => {
-    const currentColor = `rgba(${getColorComponentInverted(1)}, 
-                               ${getColorComponentInverted(3)}, 
-                               ${getColorComponent(5)})`
-    return currentColor
   }
 
   const color = () => {
@@ -43,7 +32,7 @@ export const useTaskColor = (task) => {
   }
 
   const outlinePomodoroShadow = () => {
-    const shadow = `0px 0px 2px ${invertedColor()}`;
+    const shadow = `0px 0px 2px ${color()}`;
     return shadow
   }
 
