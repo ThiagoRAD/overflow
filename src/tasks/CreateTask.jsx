@@ -11,11 +11,12 @@ const CreateTask = () => {
   const [duration, setDuration] = useState(task ? task.duration : 30)
   const [importance, setImportance] = useState(task ? task.importance : 3)
   const [type, setType] = useState(task ? task.type : 'Cyclic')
+  const [color, setColor] = useState(task?.color ?? '#ffffff')
   const navigate = useNavigate()
 
   const update = () => {
     const timeRemaining = duration * 60 * 1000
-    updateTask({ ...task, name, duration, importance, type, timeRemaining })
+    updateTask({ ...task, name, duration, importance, type, color, timeRemaining })
     navigate('/')
   }
 
@@ -26,7 +27,7 @@ const CreateTask = () => {
     const timeRemaining = duration * 60 * 1000
     const ongoing = false
     
-    addTask({ id, name, duration, importance, type, tackledAt, timeRemaining, ongoing, timesCompleted: 0 })
+    addTask({ id, name, duration, importance, type, color, tackledAt, timeRemaining, ongoing, timesCompleted: 0 })
     reorder()
     navigate(-1)
   }
@@ -54,6 +55,15 @@ const CreateTask = () => {
             value={duration}
             onChange={(e) => setDuration(+e.target.value)}
             required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Color</label>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
           />
         </div>
 
