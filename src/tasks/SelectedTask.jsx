@@ -17,7 +17,7 @@ const SelectedTask = () => {
 
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
 
-  const {request} = useWakeLock({
+  const {request, isSupported} = useWakeLock({
     onRequest: () => alert('Screen Wake Lock: requested!'),
     onError: () => alert('An error happened 💥'),
     onRelease: () => alert('Screen Wake Lock: released!'),
@@ -103,13 +103,12 @@ const SelectedTask = () => {
         <button className='back-button' onClick={() => navigate('/')}>
           ← Back
         </button>
-
         <button className='delete-button' onClick={handleDelete}>
           🗑️ Delete
         </button>
       </div>
       <h2>
-        {task.icon} {task.name}
+        {task.icon} {task.name} {isSupported ? '🛡️' : ''}
       </h2>
 
       <div className='pomodoro-container'>
