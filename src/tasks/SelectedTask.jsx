@@ -3,6 +3,7 @@ import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import useNotification from '../useNotification';
+import Pomodoro from './Pomodoro'
 
 const SelectedTask = () => {
   const id = useParams().id;
@@ -11,8 +12,8 @@ const SelectedTask = () => {
   const intervalRef = useRef(null);
   const navigate = useNavigate();
   const notification = useNotification();
-  const totalTime = task.duration * 60 * 1000;
-  const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
+  
+ 
   const wakeLockRef = useRef(null);
   const hasNotifiedRef = useRef(false);
 
@@ -24,6 +25,8 @@ const SelectedTask = () => {
     }
   };
 
+  const totalTime = task.duration * 60 * 1000;
+  
   const completeTask = () => {
     const updatedTask = {...task, timeRemaining: totalTime};
     updateTask(updatedTask);
@@ -88,15 +91,7 @@ const SelectedTask = () => {
     updateTask({...task, ongoing: false, lastTime: null});
   };
 
-  const formatTime = (milliseconds) => {
-    const seconds = Math.floor(milliseconds / 1000);
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const circumference = 2 * Math.PI * 120; // radius = 120
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+  
 
   return (
     <div className='selected-task'>
@@ -112,30 +107,7 @@ const SelectedTask = () => {
         {task.icon} {task.name}
       </h2>
 
-      <div className='pomodoro-container'>
-        <svg className='pomodoro-circle' viewBox='0 0 280 280'>
-          {/* Background circle */}
-          <circle cx='140' cy='140' r='120' fill='none' stroke='#e0e0e0' strokeWidth='20' />
-          {/* Progress circle */}
-          <circle
-            cx='140'
-            cy='140'
-            r='120'
-            fill='none'
-            stroke='#007bff'
-            strokeWidth='20'
-            strokeLinecap='round'
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            transform='rotate(-90 140 140)'
-            style={{transition: 'stroke-dashoffset 1s linear'}}
-          />
-        </svg>
-
-        <div className='timer-display'>
-          <div className='time'>{formatTime(task.timeRemaining)}</div>
-        </div>
-      </div>
+      <Pomodoro task={task} />
 
       <div className='controls'>
         {!task.ongoing && task.timeRemaining === totalTime && (
