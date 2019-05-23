@@ -40,9 +40,6 @@ const SelectedTask = () => {
     }
   };
 
-  const askForColor = () => {
-    
-  }
   const handleStart = () => {
     requestWakeLock();
     updateTask({...task, ongoing: true});
