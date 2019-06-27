@@ -13,7 +13,6 @@ const TaskItem = ({ task }) => {
   const {editMode} = useEditStore();
   const { tags } = useTagsStore()
   const tag = tags.find(tag => tag.tasks.includes(task.id))
-  console.log(task)
   const onClick = () => {
     if(editMode)
       navigate(`/create-task/${task.id}`)  
