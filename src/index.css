@@ -1,15 +1,13 @@
-* {
+@import "tailwindcss";
+
+html, body {
+  background-color: black;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom); 
   font-family: "Orbitron", sans-serif;
-}
-
-html, body {
-  background-color: #000000;
 }
