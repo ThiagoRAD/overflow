@@ -1,13 +1,12 @@
 import LiquidGlass from 'liquid-glass-react'
 import useTaskStore from './store/useTaskStore';
 import TaskItem from './TaskItem';
-import './TaskList.css';
 
 const TaskList = () => {
   const {tasks, stageSize} = useTaskStore();
 
   return (
-    <div className='task-list'>
+    <div className='flex flex-col gap-4 p-4'>
       {tasks.slice(0, stageSize).map((task) => (
             <TaskItem key={task.id} task={task} isStaged />
       ))}
