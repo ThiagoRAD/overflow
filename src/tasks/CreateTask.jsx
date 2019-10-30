@@ -26,7 +26,7 @@ const CreateTask = () => {
     
     addTask({ id, name, duration, importance, tackledAt, timeRemaining, ongoing })
     reorder()
-    navigate('/')
+    navigate(-1)
   }
 
   return (
