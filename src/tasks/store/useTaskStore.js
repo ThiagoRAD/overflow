@@ -29,7 +29,9 @@ const useTaskStore = create(
             const aDifference = todayTime - a.tackledAt;
             const bDifference = todayTime - b.tackledAt;
             
-            return bDifference - aDifference;
+            const randomA = 1+Math.random();
+            const randomB = 1+Math.random();
+            return (bDifference * randomB) - (aDifference * randomA);
           });
           return { tasks: sortedTasks };
         });
