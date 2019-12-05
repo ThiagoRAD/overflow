@@ -21,7 +21,7 @@ const TagsManagement = () => {
   }
 
   return (
-    <div className="create-tag">
+    <div className="create-tag p-4">
       <h2>Create Tag</h2>
       <form onSubmit={handleCreateTag}>
         
