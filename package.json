@@ -13,6 +13,7 @@
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/overflow.jpg"
   },
   "dependencies": {
+    "idb-keyval": "^6.2.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.12.0",
