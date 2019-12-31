@@ -19,7 +19,7 @@ const useNotification = () => {
   }, []);
 
   const notify = (text) => {
-    if (result !== 'granted') return
+    if (result !== 'granted') alert("Ended?")
     new Notification('Overflow', { body: text })
   }
 
