@@ -77,7 +77,7 @@ const TaskListTagManagement = () => {
   };
 
   return (
-    <div className='p-4' onClick={() => openTagId && setOpenTagId(null)}>
+    <div onClick={() => openTagId && setOpenTagId(null)}>
       {tags.map((tag) => (
         <div key={tag.id} className='mb-4' onDragOver={handleTagDragOver} onDrop={(event) => handleTagDrop(event, tag.id)}>
           <div className='relative overflow-hidden rounded-2xl' onClick={(event) => event.stopPropagation()}>
