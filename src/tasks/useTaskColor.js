@@ -21,7 +21,7 @@ export const useTaskColor = (task) => {
   }
 
   const shadow = () => {
-    const shadow = `0px 0px 2px rgba(255, 255, 255, ${percentage})`;
+    const shadow = `0px 0px 3px rgba(255, 255, 255, ${percentage})`;
     return shadow
   }
 
