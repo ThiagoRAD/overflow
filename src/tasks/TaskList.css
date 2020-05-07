@@ -1,0 +1,6 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: clamp(12px, 2.5vw, 20px);
+}
