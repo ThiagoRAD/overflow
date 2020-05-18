@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 
-const TaskItem = ({task}) => {
+const TaskItem = ({task, isStaged}) => {
   const navigate = useNavigate()
 
-  return <div className="task-item" onClick={() => navigate(`/task/${task.id}`)}>
+  const onClick = () => {
+    if(isStaged)
+      navigate(`/task/${task.id}`)
+  }
+
+  return <div className="task-item" onClick={onClick}>
     <h3>{task.name}</h3>
     <p>Duration: {task.duration} minutes</p>
   </div>
