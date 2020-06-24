@@ -2,13 +2,16 @@ import Pomodoro from './Pomodoro'
 
 const DraggableTaskItem = ({ task }) => {
 
-  const onDrop = () => {
+  const onDragStart = (event) => {
+    event.dataTransfer.setData('text/plain', task.id)
+    event.dataTransfer.effectAllowed = 'move'
   }
 
   return (
     <div 
       className="mt-4 p-4 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
-      onDrop={onDrop}
+      draggable
+      onDragStart={onDragStart}
     >
       <div>
         <h3>{task.name}</h3>
