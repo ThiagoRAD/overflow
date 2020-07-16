@@ -1,3 +1,4 @@
+import LiquidGlass from 'liquid-glass-react'
 import useTaskStore from './store/useTaskStore';
 import TaskItem from './TaskItem';
 import './TaskList.css';
@@ -8,11 +9,11 @@ const TaskList = () => {
   return (
     <div className='task-list'>
       {tasks.slice(0, stageSize).map((task) => (
-        <TaskItem key={task.id} task={task} isStaged />
+            <TaskItem key={task.id} task={task} isStaged />
       ))}
       <hr />
       {tasks.slice(stageSize).map((task) => (
-        <TaskItem key={task.id} task={task} />
+          <TaskItem key={task.id} task={task} />
       ))}
     </div>
   );
