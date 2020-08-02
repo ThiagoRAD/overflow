@@ -47,7 +47,7 @@ const SelectedTask = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     const tackledAt = new Date().getTime();
-    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0};
+    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0, lastTime: null};
     updateTask(updatedTask);
     if (hasNotifiedRef.current) return; 
     hasNotifiedRef.current = true;
@@ -55,12 +55,8 @@ const SelectedTask = () => {
   };
 
   const startTimer = () => {
-    let lastTime = new Date().getTime();
     intervalRef.current = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const diff = currentTime - lastTime;
-      lastTime = currentTime;
-      updateTaskTimeRemaining(task.id, diff);
+      updateTaskTimeRemaining(task.id);
     }, 1000);
   };
 
@@ -89,7 +85,7 @@ const SelectedTask = () => {
   };
 
   const handlePause = () => {
-    updateTask({...task, ongoing: false});
+    updateTask({...task, ongoing: false, lastTime: null});
   };
 
   const formatTime = (milliseconds) => {
