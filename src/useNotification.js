@@ -7,7 +7,6 @@ const useNotification = () => {
   const requestPermission = async () => {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
-      console.log(permission)
       setResult(permission);
     } else {
       setResult('unsupported');
@@ -19,7 +18,6 @@ const useNotification = () => {
   }, []);
 
   const notify = (text) => {
-    if (result !== 'granted') alert("Ended?")
     new Notification('Overflow', { body: text })
   }
 
