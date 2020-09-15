@@ -7,7 +7,6 @@ import useNotification from '../useNotification';
 const SelectedTask = () => {
   const id = useParams().id;
   const {tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder, removeTask} = useTaskStore();
-  const [finished, setFinished] = useState(false);
   const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
@@ -15,6 +14,7 @@ const SelectedTask = () => {
   const totalTime = task.duration * 60 * 1000;
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
   const wakeLockRef = useRef(null);
+  const hasNotifiedRef = useRef(false);
 
   const requestWakeLock = async () => {
     try {
@@ -43,13 +43,14 @@ const SelectedTask = () => {
   };
 
   const timerFinishedEvent = () => {
-    setFinished(true)
-    if(finished) return;
+    
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     const tackledAt = new Date().getTime();
     const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0};
     updateTask(updatedTask);
+    if (hasNotifiedRef.current) return; 
+    hasNotifiedRef.current = true;
     notification.notify(`Task "${task.name}" completed!`);
   };
 
@@ -78,6 +79,7 @@ const SelectedTask = () => {
   }, [task.ongoing, task.timeRemaining]);
 
   const handleStart = () => {
+    hasNotifiedRef.current = false; // Reset notification flag when starting
     requestWakeLock();
     updateTask({...task, ongoing: true});
   };
