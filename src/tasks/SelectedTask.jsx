@@ -3,6 +3,8 @@ import {useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import Pomodoro from './Pomodoro'
+import { IoArrowBackCircleSharp } from 'react-icons/io5'
+import { BiArrowBack, BiTrash } from 'react-icons/bi'
 
 const SelectedTask = () => {
   const id = useParams().id;
@@ -52,11 +54,11 @@ const SelectedTask = () => {
   return (
     <div className='selected-task'>
       <div className='task-header'>
-        <button className='back-button' onClick={() => navigate('/')}>
-          ← Back
+        <button className='control-button' onClick={() => navigate('/')}>
+          <BiArrowBack />
         </button>
-        <button className='delete-button' onClick={handleDelete}>
-          🗑️ Delete
+        <button className='control-button' onClick={handleDelete}>
+          <BiTrash />
         </button>
       </div>
       <h2>
