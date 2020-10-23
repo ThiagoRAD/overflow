@@ -14,11 +14,16 @@ const TaskItem = ({ task }) => {
 
   return (
     <div 
-      className="mt-4 p-4 border border-white/10 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
+      className="mt-4 p-4 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
       onClick={onClick}
     >
-      <h3>{task.name}</h3>
-      <p className="text-xs opacity-70">Goal: {task.duration} minutes</p>
+      <div>
+        <h3>{task.name}</h3>
+        <p className="text-xs opacity-70">Goal: {task.duration} minutes</p>
+      </div>
+      <div>
+        {task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}
+      </div>
     </div>
   )
 }
