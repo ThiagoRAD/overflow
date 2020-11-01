@@ -25,10 +25,11 @@ const useTaskStore = create(
           const sortedTasks = [...state.tasks].sort((a, b) => {
             const today = new Date();
             const todayDate = today.getDate();
+            console.log(todayDate)
             const notTheSameDayA = todayDate != new Date(a.tackledAt).getDate()
             const notTheSameDayB = todayDate != new Date(b.tackledAt).getDate()
             if(a.type === 'Daily' && notTheSameDayA) return -1;
-            if(b.type === 'Daily' && notTheSameDayB) return -1;
+            if(b.type === 'Daily' && notTheSameDayB) return 1;
             
             const todayTime = today.getTime();
             const aDifference = todayTime - a.tackledAt;
