@@ -16,24 +16,32 @@ const Pomodoro = ({task}) => {
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
-  const taskColor = useTaskColor(task)
+  const { color, pomodoroShadow, outlinePomodoroShadow } = useTaskColor(task)
+
+  const shadowStyle = {
+    filter: `drop-shadow(${pomodoroShadow})`,
+  }
+
+  const shadowStyle2 = {
+    filter: `drop-shadow(${outlinePomodoroShadow})`,
+  }
 
   return (
     <div className='pomodoro-container'>
-      <svg className='pomodoro-circle' viewBox='0 0 280 280'>
+      <svg className='pomodoro-circle' viewBox='0 0 280 280' style={shadowStyle}> 
         <circle cx='140' cy='140' r='120' fill='none' stroke='#222' strokeWidth='20' />
         <circle
           cx='140'
           cy='140'
           r='120'
           fill='none'
-          stroke={taskColor}
+          stroke={color}
           strokeWidth='20'
           strokeLinecap='round'
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           transform='rotate(-90 140 140)'
-          style={{transition: 'stroke-dashoffset 1s linear'}}
+          style={{transition: 'stroke-dashoffset 1s linear', ...shadowStyle2}}
         />
         <text
           className='timer-text'
