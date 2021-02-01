@@ -1,16 +1,17 @@
-import LiquidGlass from 'liquid-glass-react'
-import CreateTaskButton from '../components/CreateTaskButton'
-import TaskList from './TaskList'
+import CreateTaskButton from '../components/CreateTaskButton';
+import TaskList from './TaskList';
+import Header from '../components/Header';
 
 const NextTasks = () => {
-
   return (
     <div>
-      <CreateTaskButton />
+      <Header>
+        <CreateTaskButton />
+      </Header>
       <br />
       <TaskList />
     </div>
-  )
-}
+  );
+};
 
-export default NextTasks
+export default NextTasks;
