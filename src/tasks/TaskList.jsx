@@ -1,4 +1,3 @@
-import LiquidGlass from 'liquid-glass-react'
 import useTaskStore from './store/useTaskStore';
 import TaskItem from './TaskItem';
 import useEditStore from './store/useEditStore'
