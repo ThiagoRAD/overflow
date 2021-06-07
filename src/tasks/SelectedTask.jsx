@@ -40,6 +40,9 @@ const SelectedTask = () => {
     }
   };
 
+  const askForColor = () => {
+    
+  }
   const handleStart = () => {
     requestWakeLock();
     updateTask({...task, ongoing: true});
@@ -60,7 +63,7 @@ const SelectedTask = () => {
         </button>
       </div>
       <h2>
-        {task.icon} {task.name}
+        {task.icon} {task.name} <input type="color" value={task.color} onChange={(e) => updateTask({...task, color: e.target.value})} />
       </h2>
 
       <Pomodoro task={task} />
