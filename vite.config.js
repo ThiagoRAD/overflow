@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: "Overflow - Task Manager",
+        name: "Overflow",
         short_name: "Overflow",
         description: "A Pomodoro-based task management app",
         theme_color: '#000000',
@@ -23,19 +23,16 @@ export default defineConfig({
             src: '/overflow/pwa-192x192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any'
           },
           {
             src: '/overflow/pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any'
           },
           {
             src: '/overflow/maskable-icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'maskable'
           }
         ]
       }
