@@ -1,12 +1,15 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './CreateTaskButton.css';
-// import LiquidGlass from 'liquid-glass-react'
+import GlassButton from './GlassButton';
 
 const CreateTaskButton = () => {
+
+  const navigate = useNavigate()
+
   return (
-      <Link className='create-task-button glass' to='/create-task'>
-        +
-      </Link>
+    <GlassButton onClick={() => navigate("/create-task")}>
+      +
+    </GlassButton>
   );
 };
 
