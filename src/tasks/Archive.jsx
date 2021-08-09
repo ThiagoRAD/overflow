@@ -17,6 +17,9 @@ const Archive = () => {
     navigate('/');
   };
 
+  const recentArchiveFirst = [...archive]
+  recentArchiveFirst.reverse()
+
   return (
     <div>
       <Header>
@@ -26,7 +29,7 @@ const Archive = () => {
       </Header>
 
       <div className='p-4 pt-0 flex flex-col gap-4'>
-        {archive.map((task) => (
+        {recentArchiveFirst.map((task) => (
           <li key={task.id} className='bg-111 p-4 rounded-md'>
             {task.name}
           </li>
