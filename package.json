@@ -13,11 +13,15 @@
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/overflow.jpg"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "idb-keyval": "^6.2.2",
+    "liquid-glass-react": "^1.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.12.0",
+    "react-screen-wake-lock": "^3.1.1",
+    "tailwindcss": "^4.1.18",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
