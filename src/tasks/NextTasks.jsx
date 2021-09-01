@@ -21,7 +21,6 @@ const NextTasks = () => {
         <TagsManagementButton />
         <CreateTaskButton />
       </Header>
-      <br />
       <TaskList />
     </div>
   );
