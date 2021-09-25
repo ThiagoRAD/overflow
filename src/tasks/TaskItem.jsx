@@ -25,7 +25,7 @@ const TaskItem = ({ task }) => {
   return (
     <div 
       className="mt-4 p-4 border-2 rounded-2xl flex justify-between items-center cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
-      style={{ textShadow: shadow, borderColor: color }}
+      style={{ textShadow: shadow, borderColor: color, boxShadow: shadow }}
       onClick={onClick}
     >
       <div>
