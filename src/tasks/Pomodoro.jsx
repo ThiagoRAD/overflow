@@ -1,3 +1,5 @@
+import { useTaskColor } from './useTaskColor'
+
 const Pomodoro = ({task}) => {
 
   const formatTime = (milliseconds) => {
@@ -14,16 +16,18 @@ const Pomodoro = ({task}) => {
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+  const taskColor = useTaskColor(task)
+
   return (
     <div className='pomodoro-container'>
       <svg className='pomodoro-circle' viewBox='0 0 280 280'>
-        <circle cx='140' cy='140' r='120' fill='none' stroke='#e0e0e0' strokeWidth='20' />
+        <circle cx='140' cy='140' r='120' fill='none' stroke='#222' strokeWidth='20' />
         <circle
           cx='140'
           cy='140'
           r='120'
           fill='none'
-          stroke='#007bff'
+          stroke={taskColor}
           strokeWidth='20'
           strokeLinecap='round'
           strokeDasharray={circumference}
