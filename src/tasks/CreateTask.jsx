@@ -8,12 +8,13 @@ const CreateTask = () => {
   const [duration, setDuration] = useState(30)
   const [importance, setImportance] = useState(3)
   const navigate = useNavigate()
-  const { addToPool } = useTaskStore()
+  const { addTask, reorder } = useTaskStore()
 
   const createTask = (e) => {
     e.preventDefault()
     const id = crypto.randomUUID()
-    addToPool({ id, name, duration, importance, tackledAt: new Date().getTime() })
+    addTask({ id, name, duration, importance, tackledAt: new Date().getTime() })
+    reorder()
     navigate('/')
   }
 
