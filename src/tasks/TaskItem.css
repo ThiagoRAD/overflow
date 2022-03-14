@@ -1,7 +1,7 @@
 .task-item {
   padding: clamp(12px, 2.5vw, 20px);
-  border: 1px solid #fff1;
-  border-radius: 16px;
+  border: 1px solid #fff2; 
+  border-radius: 16px; 
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s;
   font-size: clamp(12px, 2vw, 18px);
