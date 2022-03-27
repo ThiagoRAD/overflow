@@ -114,7 +114,6 @@ const SelectedTask = () => {
         
         <div className="timer-display">
           <div className="time">{formatTime(task.timeRemaining)}</div>
-          <div className="duration">/ {task.duration}m</div>
         </div>
       </div>
 
