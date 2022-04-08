@@ -5,7 +5,7 @@ import './SelectedTask.css'
 
 const SelectedTask = () => {
   const id = useParams().id
-  const { tasks, updateTask, updateTaskTimeRemaining } = useTaskStore()
+  const { tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder } = useTaskStore()
   const task = tasks.find((t) => t.id === id)
   const intervalRef = useRef(null)
   const navigate = useNavigate()
@@ -17,6 +17,9 @@ const SelectedTask = () => {
   const completeTask = () => {
     const updatedTask = {...task, timeRemaining: totalTime}
     updateTask(updatedTask)
+    if(task == tasks[0]) increaseStageSize()
+    else decreaseStageSize()
+    reorder()
     navigate('/')
   }
 
