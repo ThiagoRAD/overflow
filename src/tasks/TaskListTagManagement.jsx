@@ -27,9 +27,9 @@ const TaskListTagManagement = () => {
   return (
     <div className='p-4'>
       {tags.map((tag) => (
-        <div key={tag.name} className='mb-4' onDragOver={handleTagDragOver} onDrop={(event) => handleTagDrop(event, tag.name)}>
+        <div key={tag.id} className='mb-4' onDragOver={handleTagDragOver} onDrop={(event) => handleTagDrop(event, tag.id)}>
           <h2 style={{color: tag.color}} className='flex items-center gap-0.5 text-xl'>
-            <div className='flex items-center gap-1 text-xl' onClick={() => toggleTagCollapse(tag.name)}><TbTag /> {tag.name} {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
+            <div className='flex items-center gap-1 text-xl' onClick={() => toggleTagCollapse(tag.id)}><TbTag /> {tag.name} {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
           </h2>
           {tag.tasks.map((taskId) => {
             console.log(tags)
