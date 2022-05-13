@@ -13,8 +13,7 @@ const CreateTask = () => {
   const createTask = (e) => {
     e.preventDefault()
     const id = crypto.randomUUID()
-    console.log(id)
-    addToPool({ id, name, duration, importance, createdAt: new Date().getTime() })
+    addToPool({ id, name, duration, importance, tackledAt: new Date().getTime() })
     navigate('/')
   }
 
