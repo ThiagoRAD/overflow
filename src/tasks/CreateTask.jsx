@@ -5,12 +5,12 @@ import './CreateTask.css'
 
 const CreateTask = () => {
   const id = useParams().id
+  const { addTask, reorder, updateTask, tasks } = useTaskStore()
   const task = tasks.find((t) => t.id === id)
   const [name, setName] = useState(task ? task.name : '')
   const [duration, setDuration] = useState(task ? task.duration : 30)
   const [importance, setImportance] = useState(task ? task.importance : 3)
   const navigate = useNavigate()
-  const { addTask, reorder, updateTask, tasks } = useTaskStore()
 
   const update = () => {
     updateTask({ ...task, name, duration, importance })
