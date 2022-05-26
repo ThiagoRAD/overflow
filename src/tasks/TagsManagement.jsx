@@ -14,7 +14,8 @@ const TagsManagement = () => {
 
   const handleCreateTag = (e) => {
     e.preventDefault()
-    createTag({ name, color, tasks: [], collapsed: false })
+    const id = crypto.randomUUID()
+    createTag({ id, name, color, tasks: [], collapsed: false })
     setName('')
     setColor('#ffffff')
   }
