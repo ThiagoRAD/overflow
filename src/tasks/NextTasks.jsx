@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
 import CreateTaskButton from '../components/CreateTaskButton'
+import TaskList from './TaskList'
 
 const NextTasks = () => {
   return (
     <div className="next-tasks">
       <CreateTaskButton />
-      Next Tasks Component
+      <TaskList />
     </div>
   )
 }
