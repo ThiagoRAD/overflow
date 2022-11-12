@@ -26,6 +26,26 @@
   }
 }
 
+.selected-color {
+    width: 25px;
+    height: 25px; 
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.selected-color::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.selected-color::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}
+
 .selected-task h2 {
   font-size: 2rem;
   text-align: center;
