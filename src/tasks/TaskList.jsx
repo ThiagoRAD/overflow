@@ -9,10 +9,10 @@ const TaskList = () => {
 
   return (
     <div className='p-4'>
-      {tasks.slice(0, stageSize).map((task) => (
+      {tasks.slice(0, parseInt(stageSize)).map((task) => (
             <TaskItem key={task.id} task={task} isStaged />
       ))}
-      {editMode && tasks.slice(stageSize).map((task) => (
+      {editMode && tasks.slice(parseInt(stageSize)).map((task) => (
           <TaskItem key={task.id} task={task} />
       ))}
     </div>
