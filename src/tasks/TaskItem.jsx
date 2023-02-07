@@ -34,6 +34,7 @@ const TaskItem = ({ task }) => {
           <div className='absolute flex gap-1 items-center justify-end right-13 text-[10px] text-nowrap'>{task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}</div>
           <div className='absolute flex gap-1 items-center justify-end right-[-3px] top-0 text-[10px]'>{task.type != 'Daily' ? <AiOutlineClockCircle /> : <RiRepeatLine  />}</div>
           <div className='absolute flex gap-1 items-center justify-end right-13 bottom-0 text-[10px]'>{tag ? <><MdLabel style={{ color: tag.color }} /> {tag.name}</> : ''}</div>
+          <div className='absolute flex gap-1 items-center justify-end right-[-3px] bottom-0 text-[5px]'>{task?.timesCompleted}</div>
           <Pomodoro task={task} />
         </div>
       </div>
