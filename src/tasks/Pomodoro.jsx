@@ -47,6 +47,7 @@ const Pomodoro = ({task}) => {
           className='timer-text'
           x='140'
           y='140'
+          color={color}
           textAnchor='middle'
           dominantBaseline='middle'
         >
