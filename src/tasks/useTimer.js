@@ -1,13 +1,27 @@
 import { useEffect, useRef } from 'react'
 import useTaskStore from './store/useTaskStore'
+import useNotification from '../useNotification'
 export const useTimer = () => {
 
   const intervalRef = useRef(null);
+  const notification = useNotification();
+  const {tasks, updateTaskTimeRemaining, updateTask} = useTaskStore();
+  
 
-  const {tasks, updateTaskTimeRemaining} = useTaskStore();
+  const timerFinishedEvent = (task) => {
+    const tackledAt = new Date().getTime();
+    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0, lastTime: null};
+    updateTask(updatedTask);
+    notification.notify(`Task "${task.name}" completed!`);
+  };
 
   const updateTasks = () => {
-    tasks.filter(t => t.ongoing).forEach(task => updateTaskTimeRemaining(task.id))
+    tasks.filter(t => t.ongoing).forEach(task => {
+      updateTaskTimeRemaining(task.id)
+      if (task.timeRemaining <= 0) {
+        timerFinishedEvent(task);
+      }
+    })
   };
 
   const clearTimer = () => {
