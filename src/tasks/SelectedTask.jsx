@@ -6,7 +6,7 @@ import useNotification from '../useNotification'
 
 const SelectedTask = () => {
   const id = useParams().id
-  const { tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder } = useTaskStore()
+  const { tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder, removeTask } = useTaskStore()
   const task = tasks.find((t) => t.id === id)
   const intervalRef = useRef(null)
   const navigate = useNavigate()
@@ -23,6 +23,15 @@ const SelectedTask = () => {
     else decreaseStageSize()
     reorder()
     navigate('/')
+  }
+
+  const handleDelete = () => {
+    if (window.confirm(`Are you sure you want to delete "${task.name}"?`)) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+      removeTask(task.id)
+      navigate('/')
+    }
   }
 
   const timerFinishedEvent = () => {
@@ -86,7 +95,15 @@ const SelectedTask = () => {
 
   return (
     <div className="selected-task">
-      <h2>{task.icon} {task.name}</h2>
+      <div className="task-header">
+        <button className="back-button" onClick={() => navigate('/')}>
+          ← Back
+        </button>
+        <h2>{task.icon} {task.name}</h2>
+        <button className="delete-button" onClick={handleDelete}>
+          🗑️ Delete
+        </button>
+      </div>
       
       <div className="pomodoro-container">
         <svg className="pomodoro-circle" viewBox="0 0 280 280">
