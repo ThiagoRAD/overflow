@@ -28,8 +28,8 @@ const Pomodoro = ({task}) => {
 
   return (
     <div className='pomodoro-container'>
-      <svg className='pomodoro-circle' viewBox='0 0 280 280' style={shadowStyle}> 
-        <circle cx='140' cy='140' r='120' fill='none' stroke='#222' strokeWidth='20' />
+      <svg className='pomodoro-circle' viewBox='0 0 280 280'> 
+        <circle cx='140' cy='140' r='120' fill='none' stroke='#111' strokeWidth='20' style={shadowStyle} />
         <circle
           cx='140'
           cy='140'
