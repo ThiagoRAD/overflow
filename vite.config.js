@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: "Overflow",
         short_name: "Overflow",
-        themeColors: "#000000",
+        theme_color: '#000000',
         background_color: '#000000',
         start_url: '/overflow',
         scope: '/overflow',
