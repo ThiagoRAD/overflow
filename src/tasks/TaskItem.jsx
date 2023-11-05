@@ -3,12 +3,17 @@ import useEditStore from './store/useEditStore'
 import Pomodoro from './Pomodoro'
 import useTagsStore from './store/useTagsStore'
 import { MdLabel } from 'react-icons/md'
+import { FaClock, FaDailymotion } from 'react-icons/fa'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+import { BiRepeat } from 'react-icons/bi'
+import { RiRepeatLine, RiRepeatOneLine } from 'react-icons/ri'
 
 const TaskItem = ({ task }) => {
   const navigate = useNavigate()
   const {editMode} = useEditStore();
   const { tags } = useTagsStore()
   const tag = tags.find(tag => tag.tasks.includes(task.id))
+  console.log(task)
   const onClick = () => {
     if(editMode)
       navigate(`/create-task/${task.id}`)  
@@ -28,6 +33,7 @@ const TaskItem = ({ task }) => {
       <div className="flex items-center gap-2 text-sm">
         <div className="w-12 h-12 relative">
           <div className='absolute flex gap-1 items-center justify-end right-13 text-[10px] text-nowrap'>{task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}</div>
+          <div className='absolute flex gap-1 items-center justify-end right-[-3px] top-0 text-[10px]'>{task.type != 'Daily' ? <AiOutlineClockCircle /> : <RiRepeatLine  />}</div>
           <div className='absolute flex gap-1 items-center justify-end right-13 bottom-0 text-[10px]'>{tag ? <><MdLabel style={{ color: tag.color }} /> {tag.name}</> : ''}</div>
           <Pomodoro task={task} />
         </div>
