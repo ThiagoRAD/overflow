@@ -71,16 +71,10 @@
   height: 100%;
 }
 
-.timer-display {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.timer-display .time {
-  font-size: 3rem;
+.timer-text {
+  font-size: 32px;
+  font-weight: 600;
+  fill: currentColor;
 }
 
 .controls {
