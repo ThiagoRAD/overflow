@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --btn-radius: 60px;
-  --btn-content-bg: hsl(0 100% 100% / 15%);
-  --btn-filters: blur(4px) brightness(150%);
-}
-
 html, body {
   background-color: black;
   margin: 0;
