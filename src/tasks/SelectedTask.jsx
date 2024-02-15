@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import useNotification from '../useNotification';
