@@ -21,17 +21,17 @@ export const useTaskColor = (task) => {
   }
 
   const shadow = () => {
-    const shadow = `0px 0px ${percentage/100}px rgba(255, 255, 255, ${percentage})`;
+    const shadow = `0px 0px ${percentage}px rgba(255, 255, 255, ${percentage})`;
     return shadow
   }
 
   const pomodoroShadow = () => {
-    const shadow = `0px 0px ${percentage/100}px ${color()}`;
+    const shadow = `0px 0px ${percentage}px ${color()}`;
     return shadow
   }
 
   const outlinePomodoroShadow = () => {
-    const shadow = `0px 0px ${percentage/100}px ${color()}`;
+    const shadow = `0px 0px ${percentage}px ${color()}`;
     return shadow
   }
 
