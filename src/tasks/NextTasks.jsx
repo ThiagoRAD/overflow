@@ -6,6 +6,7 @@ const NextTasks = () => {
   return (
     <div className="next-tasks">
       <CreateTaskButton />
+      <br />
       <TaskList />
     </div>
   )
