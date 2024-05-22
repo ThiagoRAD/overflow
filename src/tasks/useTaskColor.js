@@ -12,6 +12,18 @@ export const useTaskColor = (task) => {
     const target = parseInt(targetColor.slice(component, component + 2), 16)
     return getAverage(base, target, percentage)
   }
+  const getColorComponentInverted = (component) => {
+    const base = parseInt(baseColor.slice(component, component + 2), 16)
+    const target = parseInt(targetColor.slice(component, component + 2), 16)
+    return getAverage(target, base, percentage)
+  }
+
+  const invertedColor = () => {
+    const currentColor = `rgba(${getColorComponentInverted(1)}, 
+                               ${getColorComponentInverted(3)}, 
+                               ${getColorComponent(5)})`
+    return currentColor
+  }
 
   const color = () => {
     const currentColor = `rgba(${getColorComponent(1)}, 
@@ -25,8 +37,20 @@ export const useTaskColor = (task) => {
     return shadow
   }
 
+  const pomodoroShadow = () => {
+    const shadow = `0px 0px 2px ${color()}`;
+    return shadow
+  }
+
+  const outlinePomodoroShadow = () => {
+    const shadow = `0px 0px 2px ${invertedColor()}`;
+    return shadow
+  }
+
   return {
     color: color(),
-    shadow: shadow()
+    shadow: shadow(),
+    pomodoroShadow: pomodoroShadow(),
+    outlinePomodoroShadow: outlinePomodoroShadow()
   }
 }
