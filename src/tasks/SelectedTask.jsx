@@ -17,15 +17,24 @@ const SelectedTask = () => {
 
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
 
-  const {request, isSupported} = useWakeLock({
+  const {request} = useWakeLock({
     onRequest: () => alert('Screen Wake Lock: requested!'),
     onError: (e) => alert(e),
     onRelease: () => alert('Screen Wake Lock: released!'),
     reacquireOnPageVisible: true,
   });
 
+  const makeRequest = async () => {
+    const data = await request()
+    alert(data)
+  }
+
   useEffect(() => {
-    request();
+    try {
+      makeRequest();
+    } catch (e) {
+      alert(e);
+    }
   }, []);
 
   const completeTask = () => {
@@ -108,7 +117,7 @@ const SelectedTask = () => {
         </button>
       </div>
       <h2>
-        {task.icon} {task.name} {isSupported ? '🛡️' : ''}
+        {task.icon} {task.name}
       </h2>
 
       <div className='pomodoro-container'>
