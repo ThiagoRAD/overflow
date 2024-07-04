@@ -4,11 +4,9 @@ import './CreateTaskButton.css';
 
 const CreateTaskButton = () => {
   return (
-      <div>
-        <Link className='create-task-button' to='/create-task'>
-          +
-        </Link>
-      </div>
+      <Link className='create-task-button glass' to='/create-task'>
+        +
+      </Link>
   );
 };
 
