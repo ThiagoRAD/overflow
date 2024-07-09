@@ -17,7 +17,7 @@ const useTaskStore = create(
       staging: [],
       stageSize: 5,
       decreaseStageSize: () => set((state) => ({ stageSize: Math.max(1, state.stageSize - 1) })),
-      increaseStageSize: () => set((state) => ({ stageSize: Math.min(5, state.stageSize + 1) })),
+      increaseStageSize: () => set((state) => ({ stageSize: Math.min(state.tasks.length, state.stageSize + 1) })),
       addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
       removeTask: (id) => set((state) => ({ tasks: state.tasks.filter((task) => task.id !== id) })),
       reorder: () => {
