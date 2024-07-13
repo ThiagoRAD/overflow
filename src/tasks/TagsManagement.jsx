@@ -2,24 +2,25 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useTagsStore from './store/useTagsStore'
 import './CreateTask.css'
+import TaskListTagManagement from './TaskListTagManagement'
 
 const TagsManagement = () => {
 
 
   const [name, setName] = useState('')
-  const { addTag } = useTagsStore()
+  const { createTag } = useTagsStore()
   const [color, setColor] = useState('#ffffff')
   const navigate = useNavigate()
 
-  const createTag = (e) => {
+  const handleCreateTag = (e) => {
     e.preventDefault()
-    addTag({ name, color, tasks: [] })
+    createTag({ name, color, tasks: [] })
   }
 
   return (
     <div className="create-tag">
       <h2>Create Tag</h2>
-      <form onSubmit={createTag}>
+      <form onSubmit={handleCreateTag}>
         
         <div className="form-group">
           <label>Name</label>
@@ -50,6 +51,8 @@ const TagsManagement = () => {
           </button>
         </div>
       </form>
+      <TaskListTagManagement />
+
     </div>
   )
 }
