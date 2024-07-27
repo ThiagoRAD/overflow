@@ -14,6 +14,9 @@ export default defineConfig({
         short_name: "Overflow",
         themeColors: "#000000",
         background_color: '#000000',
+        start_url: '/overflow',
+        scope: '/overflow',
+        display: 'standalone',
         icons: [
           {
             src: 'icon512_maskable.png',
