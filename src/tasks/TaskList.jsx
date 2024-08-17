@@ -2,13 +2,10 @@ import LiquidGlass from 'liquid-glass-react'
 import useTaskStore from './store/useTaskStore';
 import TaskItem from './TaskItem';
 import useEditStore from './store/useEditStore'
-import { useTimer } from './useTimer'
 
 const TaskList = () => {
   const {tasks, stageSize} = useTaskStore();
   const {editMode} = useEditStore();
-  
-  useTimer()
 
   return (
     <div className='p-4'>
