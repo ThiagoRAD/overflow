@@ -27,7 +27,7 @@ const TaskItem = ({ task }) => {
       </div>
       <div className="flex items-center gap-2 text-sm">
         <div className="w-12 h-12 relative">
-          <div className='absolute right-6 w-15 text-[10px]'>{task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}</div>
+          <div className='absolute flex gap-1 items-center justify-end right-13 text-[10px] text-nowrap'>{task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}</div>
           <div className='absolute flex gap-1 items-center justify-end right-13 bottom-0 text-[10px]'>{tag ? <><MdLabel style={{ color: tag.color }} /> {tag.name}</> : ''}</div>
           <Pomodoro task={task} />
         </div>
