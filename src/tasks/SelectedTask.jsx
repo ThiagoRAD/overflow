@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import useTaskStore from './store/useTaskStore'
 import './SelectedTask.css'
+import useNotification from '../useNotification'
 
 const SelectedTask = () => {
   const id = useParams().id
@@ -9,6 +10,7 @@ const SelectedTask = () => {
   const task = tasks.find((t) => t.id === id)
   const intervalRef = useRef(null)
   const navigate = useNavigate()
+  const notification = useNotification()
 
   const totalTime = task.duration * 60 * 1000
   
@@ -20,6 +22,7 @@ const SelectedTask = () => {
     if(task == tasks[0]) increaseStageSize()
     else decreaseStageSize()
     reorder()
+    notification.notify(`Task "${task.name}" completed!`)
     navigate('/')
   }
 
