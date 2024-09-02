@@ -8,16 +8,18 @@ const TaskList = () => {
   useEffect(() => {
     const replenishStaging = () => {
       const toAdd = [];
-      while (staging.length < stageSize) {
+      const elementsToReplenish = stageSize - staging.length;
+      if (elementsToReplenish) {
         const poolElementsNotInStaging = pool.filter((task) => !staging.find((stagedTask) => stagedTask.id === task.id));
         if (poolElementsNotInStaging.length === 0) {
-          break;
+          return;
         }
-        poolElementsNotInStaging.sort((a, b) => b.createdAt - a.createdAt);
-        const taskToAdd = poolElementsNotInStaging[0];
-        toAdd.push(taskToAdd);
+        poolElementsNotInStaging.sort((a, b) => a.createdAt - b.createdAt);
+        const taskToAdd = poolElementsNotInStaging.slice(0, elementsToReplenish);
+        toAdd.push(...taskToAdd);
       }
       if(toAdd.length > 0)
+        console.log("Calling add to stage")
         addToStage(toAdd);
     };
     if(staging.length < stageSize)
