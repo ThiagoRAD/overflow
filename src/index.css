@@ -8,3 +8,7 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom); 
 }
+
+html, body {
+  background-color: #000000;
+}
