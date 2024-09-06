@@ -7,7 +7,7 @@ import useNotification from '../useNotification';
 const SelectedTask = () => {
   const id = useParams().id;
   const {tasks, updateTask, updateTaskTimeRemaining, increaseStageSize, decreaseStageSize, reorder, removeTask} = useTaskStore();
-  const task = tasks.find((t) => t.id === id);
+  const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
   const wakeLock = useRef(null);
   const navigate = useNavigate();
