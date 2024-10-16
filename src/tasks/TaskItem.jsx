@@ -3,12 +3,14 @@ import useEditStore from './store/useEditStore'
 import Pomodoro from './Pomodoro'
 import useTagsStore from './store/useTagsStore'
 import { MdLabel } from 'react-icons/md'
-import { FaClock, FaDailymotion } from 'react-icons/fa'
 import { AiOutlineClockCircle } from 'react-icons/ai'
-import { BiRepeat } from 'react-icons/bi'
-import { RiRepeatLine, RiRepeatOneLine } from 'react-icons/ri'
+import { RiRepeatLine } from 'react-icons/ri'
+import { useTaskColor } from './useTaskColor'
 
 const TaskItem = ({ task }) => {
+
+  const taskColor = useTaskColor(task);
+
   const navigate = useNavigate()
   const {editMode} = useEditStore();
   const { tags } = useTagsStore()
@@ -23,6 +25,7 @@ const TaskItem = ({ task }) => {
   return (
     <div 
       className="mt-4 p-4 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
+      style={{ color: taskColor }}
       onClick={onClick}
     >
       <div>
