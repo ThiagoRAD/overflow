@@ -2,10 +2,12 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import NextTasks from './tasks/NextTasks'
 import CreateTask from './tasks/CreateTask'
 import SelectedTask from './tasks/SelectedTask'
+import Canvas from './components/Canvas';
 
 const App = () => {
   return (
     <div className='bg-000 min-h-screen text-white'>
+      {/* <Canvas width={800} height={600} /> */}
       <Router basename="/overflow">
         <Routes>
           <Route path='/' element={<NextTasks />} />
