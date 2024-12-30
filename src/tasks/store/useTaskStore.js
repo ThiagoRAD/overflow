@@ -11,7 +11,7 @@ const useTaskStore = create(
       archive: [],
       stageSize: 5,
       decreaseStageSize: () => set((state) => ({stageSize: Math.max(1, state.stageSize - 0.5)})),
-      increaseStageSize: () => set((state) => ({stageSize: Math.min(state.tasks.length, state.stageSize + 2)})),
+      increaseStageSize: () => set((state) => ({stageSize: Math.min(state.tasks.length, state.stageSize + 2.5)})),
       addTask: (task) => set((state) => ({tasks: [...state.tasks, task]})),
       removeTask: (id) => set((state) => ({tasks: state.tasks.filter((task) => task.id !== id)})),
       addToArchive: (task) => {
