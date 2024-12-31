@@ -1,54 +1,75 @@
-import { useParams } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import useTaskStore from './store/useTaskStore'
 import './SelectedTask.css'
 
 const SelectedTask = () => {
   const id = useParams().id
-  const { tasks } = useTaskStore()
+  const { tasks, updateTask, updateTaskTimeRemaining } = useTaskStore()
   const task = tasks.find((t) => t.id === id)
-  
-  const [isRunning, setIsRunning] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(task.duration * 60) // Convert to seconds
   const intervalRef = useRef(null)
+  const navigate = useNavigate()
 
-  const totalSeconds = task.duration * 60
-  const progress = ((totalSeconds - timeLeft) / totalSeconds) * 100
+  const totalTime = task.duration * 60 * 1000
+  
+  const progress = ((totalTime - task.timeRemaining) / totalTime) * 100
+
+  const completeTask = () => {
+    const updatedTask = {...task, timeRemaining: totalTime}
+    updateTask(updatedTask)
+    navigate('/')
+  }
+
+  const timerFinishedEvent = () => {
+    clearInterval(intervalRef.current)
+    intervalRef.current = null
+    const tackledAt = new Date().getTime()
+    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0}
+    updateTask(updatedTask)
+  }
+
+  const startTimer = () => {
+    let lastTime = new Date().getTime();
+    intervalRef.current = setInterval(() => {
+      const currentTime = new Date().getTime();
+      const diff = currentTime - lastTime;
+      lastTime = currentTime;
+      updateTaskTimeRemaining(task.id, diff)
+    }, 1000)
+  }
 
   useEffect(() => {
-    if (isRunning && timeLeft > 0) {
-      intervalRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            setIsRunning(false)
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
+    if (task.ongoing && task.timeRemaining > 0 && !intervalRef.current) {
+      startTimer()
+    } 
+    if(!task.ongoing) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
     }
 
+    if (task.timeRemaining <= 0) {
+      timerFinishedEvent()
+    }
+  }, [task.ongoing, task.timeRemaining])
+
+  useEffect(() => {
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
     }
-  }, [isRunning, timeLeft])
+  }, [])
 
   const handleStart = () => {
-    setIsRunning(true)
+    updateTask({...task, ongoing: true })
   }
 
   const handlePause = () => {
-    setIsRunning(false)
+    updateTask({...task, ongoing: false })
   }
 
-  const handleReset = () => {
-    setIsRunning(false)
-    setTimeLeft(task.duration * 60)
-  }
-
-  const formatTime = (seconds) => {
+  const formatTime = (milliseconds) => {
+    const seconds = Math.floor(milliseconds / 1000);
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
@@ -78,7 +99,7 @@ const SelectedTask = () => {
             cy="140"
             r="120"
             fill="none"
-            stroke={timeLeft === 0 ? '#28a745' : isRunning ? '#007bff' : '#dc3545'}
+            stroke='#007bff'
             strokeWidth="20"
             strokeLinecap="round"
             strokeDasharray={circumference}
@@ -89,38 +110,33 @@ const SelectedTask = () => {
         </svg>
         
         <div className="timer-display">
-          <div className="time">{formatTime(timeLeft)}</div>
+          <div className="time">{formatTime(task.timeRemaining)}</div>
           <div className="duration">/ {task.duration}m</div>
         </div>
       </div>
 
       <div className="controls">
-        {!isRunning && timeLeft === totalSeconds && (
+        {!task.ongoing && task.timeRemaining === totalTime && (
           <button className="btn btn-start" onClick={handleStart}>
             Start Task
           </button>
         )}
         
-        {isRunning && (
+        {task.ongoing && (
           <button className="btn btn-pause" onClick={handlePause}>
             Pause
           </button>
         )}
         
-        {!isRunning && timeLeft < totalSeconds && timeLeft > 0 && (
-          <>
+        {!task.ongoing && task.timeRemaining < totalTime && task.timeRemaining > 0 && (
             <button className="btn btn-resume" onClick={handleStart}>
               Resume
             </button>
-            <button className="btn btn-reset" onClick={handleReset}>
-              Reset
-            </button>
-          </>
         )}
 
-        {timeLeft === 0 && (
-          <button className="btn btn-reset" onClick={handleReset}>
-            Start Again
+        {task.timeRemaining === 0 && (
+          <button className="btn btn-reset" onClick={completeTask}>
+            Complete
           </button>
         )}
       </div>
