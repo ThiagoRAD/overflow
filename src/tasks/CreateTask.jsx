@@ -26,7 +26,7 @@ const CreateTask = () => {
     const timeRemaining = duration * 60 * 1000
     const ongoing = false
     
-    addTask({ id, name, duration, importance, type, tackledAt, timeRemaining, ongoing })
+    addTask({ id, name, duration, importance, type, tackledAt, timeRemaining, ongoing, timesCompleted: 0 })
     reorder()
     navigate(-1)
   }
@@ -64,17 +64,19 @@ const CreateTask = () => {
             <option value="Daily">Daily</option>
           </select>
         </div>
-        <div className="form-group">
-          <label>Importance: {importance}</label>
-          <input
-            type="range"
-            className="importance-slider"
-            value={importance}
-            onChange={(e) => setImportance(+e.target.value)}
-            min="1"
-            max="5"
-          />
-        </div>
+        {type === 'Cyclic' && (
+          <div className="form-group">
+            <label>Importance: {importance}</label>
+            <input
+              type="range"
+              className="importance-slider"
+              value={importance}
+              onChange={(e) => setImportance(+e.target.value)}
+              min="1"
+              max="5"
+              />
+          </div>
+          )}
 
         <div className="button-group">
           <button type="submit" className="btn btn-primary">
