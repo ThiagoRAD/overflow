@@ -17,9 +17,10 @@ export const useTimer = () => {
 
   const updateTasks = () => {
     tasks.filter(t => t.ongoing).forEach(task => {
-      updateTaskTimeRemaining(task.id)
       if (task.timeRemaining <= 0) {
         timerFinishedEvent(task);
+      } else {
+        updateTaskTimeRemaining(task.id)
       }
     })
   };
@@ -37,10 +38,13 @@ export const useTimer = () => {
   };
 
   useEffect(() => {
-    startTimer();
     return () => {
       clearTimer();
     }
   }, [])
+
+  useEffect(() => {
+    startTimer();
+  }, [tasks])
 
 }
