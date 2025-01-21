@@ -25,16 +25,17 @@ const SelectedTask = () => {
   });
 
   const makeRequest = async () => {
-    const data = await request()
-    alert(data)
-  }
+    await request();
+  };
 
   useEffect(() => {
-    try {
-      makeRequest();
-    } catch (e) {
-      alert(e);
-    }
+    makeRequest();
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        alert('making request')
+        makeRequest();
+      }
+    });
   }, []);
 
   const completeTask = () => {
