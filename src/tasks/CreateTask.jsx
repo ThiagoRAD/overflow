@@ -28,7 +28,7 @@ const CreateTask = () => {
       <form onSubmit={createTask}>
         
         <div className="form-group">
-          <label>Task Name *</label>
+          <label>Task Name</label>
           <input
             type="text"
             value={name}
@@ -45,8 +45,6 @@ const CreateTask = () => {
             value={duration}
             onChange={(e) => setDuration(+e.target.value)}
             required
-            min="1"
-            max="240"
           />
         </div>
 
