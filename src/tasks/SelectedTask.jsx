@@ -2,7 +2,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
-import { useWakeLock } from 'react-screen-wake-lock';
+import {useWakeLock} from 'react-screen-wake-lock';
 import useNotification from '../useNotification';
 
 const SelectedTask = () => {
@@ -17,7 +17,7 @@ const SelectedTask = () => {
 
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
 
-  const { request } = useWakeLock({
+  const {request} = useWakeLock({
     onRequest: () => alert('Screen Wake Lock: requested!'),
     onError: () => alert('An error happened 💥'),
     onRelease: () => alert('Screen Wake Lock: released!'),
@@ -103,13 +103,14 @@ const SelectedTask = () => {
         <button className='back-button' onClick={() => navigate('/')}>
           ← Back
         </button>
-        <h2>
-          {task.icon} {task.name}
-        </h2>
+
         <button className='delete-button' onClick={handleDelete}>
           🗑️ Delete
         </button>
       </div>
+      <h2>
+        {task.icon} {task.name}
+      </h2>
 
       <div className='pomodoro-container'>
         <svg className='pomodoro-circle' viewBox='0 0 280 280'>
