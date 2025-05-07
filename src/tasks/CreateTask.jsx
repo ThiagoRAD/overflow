@@ -1,14 +1,21 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useTaskStore from './store/useTaskStore'
 import './CreateTask.css'
 
 const CreateTask = () => {
-  const [name, setName] = useState('')
-  const [duration, setDuration] = useState(30)
-  const [importance, setImportance] = useState(3)
+  const id = useParams().id
+  const task = tasks.find((t) => t.id === id)
+  const [name, setName] = useState(task ? task.name : '')
+  const [duration, setDuration] = useState(task ? task.duration : 30)
+  const [importance, setImportance] = useState(task ? task.importance : 3)
   const navigate = useNavigate()
-  const { addTask, reorder } = useTaskStore()
+  const { addTask, reorder, updateTask, tasks } = useTaskStore()
+
+  const update = () => {
+    updateTask({ ...task, name, duration, importance })
+    navigate('/')
+  }
 
   const createTask = (e) => {
     e.preventDefault()
@@ -24,8 +31,8 @@ const CreateTask = () => {
 
   return (
     <div className="create-task">
-      <h2>Create New Task</h2>
-      <form onSubmit={createTask}>
+      <h2>{task ? 'Edit Task' : 'Create Task'}</h2>
+      <form onSubmit={task ? update : createTask}>
         
         <div className="form-group">
           <label>Task Name</label>
