@@ -1,7 +1,6 @@
 import Blur from './Blur';
 
 const GlassButton = ({children, ...props}) => {
-  console.log(children)
   return (
     <button className='relative overflow-hidden shadow-lg rounded-[--btn-radius] cursor-pointer h-7.5 w-7.5' {...props}>
       <Blur></Blur>
