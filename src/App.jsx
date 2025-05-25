@@ -2,7 +2,6 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import NextTasks from './tasks/NextTasks'
 import CreateTask from './tasks/CreateTask'
 import SelectedTask from './tasks/SelectedTask'
-import Canvas from './components/Canvas';
 import { useTimer } from './tasks/useTimer'
 import { useEffect } from 'react'
 import TagsManagement from './tasks/TagsManagement'
