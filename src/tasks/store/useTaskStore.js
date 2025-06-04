@@ -32,6 +32,12 @@ const useTaskStore = create(
           return { tasks: sortedTasks };
         });
       },
+      updateTaskTimeRemaining: (id, diff) =>
+        set((state) => ({
+          tasks: state.tasks.map((task) =>
+            task.id === id ? { ...task, timeRemaining: task.timeRemaining - diff } : task
+          ),
+        })),
       updateTask: (updatedTask) =>
         set((state) => ({
           tasks: state.tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
