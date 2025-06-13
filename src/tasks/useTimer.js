@@ -20,7 +20,7 @@ export const useTimer = () => {
     const { tasks } = useTaskStore.getState();
     if (!tasks || tasks.length === 0) return;
     tasks.filter(t => t.ongoing).forEach(task => {
-      if (task.timeRemaining <= 0) {
+      if (task.timeRemaining <= 1000) {
         timerFinishedEvent(task);
       } else {
         updateTaskTimeRemaining(task.id)
