@@ -8,16 +8,19 @@ const useTagsStore = create(
       tags: [],
       createTag: (tag) => set((state) => ({ tags: [...state.tags, tag] })),
       deleteTag: (id) => set((state) => ({ tags: state.tags.filter((tag) => tag.id !== id) })),
-      addTaskToTag: (tagId, taskId) => set((state) => ({
+      addTaskToTag: (tagName, taskId) => set((state) => ({
         tags: state.tags.map((tag) => {
-          if(tag.id !== tagId) return tag;
-          return { ...tag, taskIds: [...(tag.taskIds || []), taskId] }
+          console.log(state.tags)
+          if(tag.name !== tagName) return tag;
+          const existingIds = tag.tasks
+          if(existingIds.includes(taskId)) return { ...tag, tasks: existingIds }
+          return { ...tag, tasks: [...existingIds, taskId] }
         })
       })),
-      removeTaskFromTag: (tagId, taskId) => set((state) => ({
+      removeTaskFromTags: (taskId) => set((state) => ({
         tags: state.tags.map((tag) => {
-          if(tag.id !== tagId) return tag;
-          return { ...tag, taskIds: (tag.taskIds || []).filter(id => id !== taskId) }
+          const existingIds = tag.tasks
+          return { ...tag, tasks: existingIds.filter(id => id !== taskId) }
         })
       })),
       setTags: (tags) => set(() => ({ tags })),
