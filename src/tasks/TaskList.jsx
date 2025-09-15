@@ -9,6 +9,10 @@ const TaskList = () => {
   return (
     <div className='task-list'>
       {tasks.slice(0, stageSize).map((task) => (
+        <TaskItem key={task.id} task={task} isStaged />
+      ))}
+      <hr />
+      {tasks.slice(stageSize).map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
     </div>
