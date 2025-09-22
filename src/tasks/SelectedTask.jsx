@@ -2,7 +2,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
-import {useWakeLock} from 'react-screen-wake-lock';
 import useNotification from '../useNotification';
 
 const SelectedTask = () => {
@@ -12,28 +11,30 @@ const SelectedTask = () => {
   const intervalRef = useRef(null);
   const navigate = useNavigate();
   const notification = useNotification();
-
   const totalTime = task.duration * 60 * 1000;
-
   const progress = ((totalTime - task.timeRemaining) / totalTime) * 100;
+  const wakeLockRef = useRef(null);
 
-  const {request} = useWakeLock({
-    onRequest: () => alert('Screen Wake Lock: requested!'),
-    onError: (e) => alert(e),
-    onRelease: () => alert('Screen Wake Lock: released!'),
-    reacquireOnPageVisible: true,
-  });
-
-  const makeRequest = async () => {
-    await request();
+  const requestWakeLock = async () => {
+    try {
+      wakeLockRef.current = await navigator.wakeLock.request('screen');
+      alert(wakeLockRef.current)
+      alert('Wake Lock is active!');
+      wakeLockRef.current.addEventListener('release', () => {
+        alert('Wake Lock was released');
+      });
+    } catch (err) {
+      // Handle error cases
+      alert(`${err.name}, ${err.message}`);
+    }
   };
 
   useEffect(() => {
-    makeRequest();
+    requestWakeLock();
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        alert('making request')
-        makeRequest();
+        alert('making request');
+        requestWakeLock();
       }
     });
   }, []);
@@ -55,20 +56,6 @@ const SelectedTask = () => {
       navigate('/');
     }
   };
-
-
-  const requestWakeLock = async () => {
-  try {
-    const wakeLockSentinel = await navigator.wakeLock.request('screen');
-    alert('Wake Lock is active!');
-    wakeLockSentinel.addEventListener('release', () => {
-      alert('Wake Lock was released');
-    });
-  } catch (err) {
-    // Handle error cases
-    alert(`${err.name}, ${err.message}`);
-  }
-};
 
   const timerFinishedEvent = () => {
     clearInterval(intervalRef.current);
