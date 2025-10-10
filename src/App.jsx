@@ -4,9 +4,19 @@ import CreateTask from './tasks/CreateTask'
 import SelectedTask from './tasks/SelectedTask'
 import Canvas from './components/Canvas';
 import { useTimer } from './tasks/useTimer'
+import { useEffect } from 'react'
 
 const App = () => {
-  useTimer()
+
+  const { startTimer, clearTimer } = useTimer();
+  
+  useEffect(() => {
+    startTimer();
+    return () => {
+      clearTimer();
+    }
+  }, [])
+
   return (
     <div className='bg-000 min-h-screen text-white'>
       {/* <Canvas width={800} height={600} /> */}
