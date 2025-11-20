@@ -14,8 +14,10 @@ const CreateTask = () => {
     e.preventDefault()
     const id = crypto.randomUUID()
     const tackledAt = new Date().getTime()
+    const timeRemaining = duration * 60 * 1000
+    const ongoing = false
     
-    addTask({ id, name, duration, importance, tackledAt })
+    addTask({ id, name, duration, importance, tackledAt, timeRemaining, ongoing })
     reorder()
     navigate('/')
   }
