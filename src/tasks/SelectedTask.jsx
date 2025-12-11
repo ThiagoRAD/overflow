@@ -3,7 +3,6 @@ import {useRef} from 'react';
 import useTaskStore from './store/useTaskStore';
 import './SelectedTask.css';
 import Pomodoro from './Pomodoro'
-import { IoArrowBackCircleSharp } from 'react-icons/io5'
 import { BiArrowBack, BiTrash } from 'react-icons/bi'
 
 const SelectedTask = () => {
@@ -62,8 +61,9 @@ const SelectedTask = () => {
         </button>
       </div>
       <h2>
-        {task.icon} {task.name} <input type="color" value={task.color} onChange={(e) => updateTask({...task, color: e.target.value})} />
+        {task.icon} {task.name} 
       </h2>
+      <input className='selected-color' type="color" value={task.color} onChange={(e) => updateTask({...task, color: e.target.value})} />
 
       <Pomodoro task={task} />
 
