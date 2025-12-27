@@ -19,7 +19,7 @@ const SelectedTask = () => {
 
   const {request, isSupported} = useWakeLock({
     onRequest: () => alert('Screen Wake Lock: requested!'),
-    onError: () => alert('An error happened 💥'),
+    onError: (e) => alert(e),
     onRelease: () => alert('Screen Wake Lock: released!'),
     reacquireOnPageVisible: true,
   });
