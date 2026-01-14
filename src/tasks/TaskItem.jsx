@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import useEditStore from './store/useEditStore'
+import Pomodoro from './Pomodoro'
 
 const TaskItem = ({ task }) => {
   const navigate = useNavigate()
@@ -21,8 +22,11 @@ const TaskItem = ({ task }) => {
         <h3>{task.name}</h3>
         <p className="text-xs opacity-70">Goal: {task.duration} minutes</p>
       </div>
-      <div>
+      <div className="flex items-center gap-2 text-sm">
         {task.tackledAt && new Date(task.tackledAt).toLocaleString("en-US", { month: 'short', day: 'numeric' })}
+        <div className="w-12 h-12">
+          <Pomodoro task={task} />
+        </div>
       </div>
     </div>
   )
