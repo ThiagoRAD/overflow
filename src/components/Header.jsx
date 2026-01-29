@@ -9,7 +9,6 @@ const Header = ({children}) => {
   const totalTasks = tasks.length
   const dailyTasks = tasks.filter(task => task.type === 'Daily').length
   const cyclicTasks = tasks.filter(task => task.type === 'Cyclic').length
-  console.log(tasks.map(task => task.type))
   return (
     <header className="flex text-white items-center space-between">
       <div className="gap-4 p-4 text-sm flex items-end text-[8px]"> {stageSize} of {totalTasks} tasks<span className="text-gray-400 flex items-center gap-1"> ({dailyTasks} <RiRepeatLine /> / {cyclicTasks} <AiOutlineClockCircle/></span> </div>
