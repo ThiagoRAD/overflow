@@ -9,7 +9,7 @@ import { useTaskColor } from './useTaskColor'
 
 const TaskItem = ({ task }) => {
 
-  const taskColor = useTaskColor(task);
+  const  { shadow, color } = useTaskColor(task);
 
   const navigate = useNavigate()
   const {editMode} = useEditStore();
@@ -25,12 +25,12 @@ const TaskItem = ({ task }) => {
   return (
     <div 
       className="mt-4 p-4 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer transition-all duration-200 hover:bg-white/5 hover:shadow-lg text-lg"
-      style={{ color: taskColor }}
+      style={{ color, textShadow: shadow }}
       onClick={onClick}
     >
       <div>
-        <h3>{task.name}</h3>
-        <p className="text-xs opacity-70">Goal: {task.duration} minutes</p>
+        <h3 >{task.name}</h3>
+        <p className="text-xs" >Goal: {task.duration} minutes</p>
       </div>
       <div className="flex items-center gap-2 text-sm">
         <div className="w-12 h-12 relative">
