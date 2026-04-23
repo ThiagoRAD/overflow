@@ -86,7 +86,7 @@ const SelectedTask = () => {
           </button>
         )}
 
-        {task.timeRemaining === 0 && (
+        {task.timeRemaining <= 0 && (
           <button className='btn btn-reset' onClick={completeTask}>
             Complete
           </button>
