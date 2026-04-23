@@ -65,32 +65,8 @@ const SelectedTask = () => {
       </h2>
       <input className='selected-color' type="color" value={task.color} onChange={(e) => updateTask({...task, color: e.target.value})} />
 
-      <Pomodoro task={task} />
-
-      <div className='controls'>
-        {!task.ongoing && task.timeRemaining === totalTime && (
-          <button className='btn btn-start' onClick={handleStart}>
-            Start Task
-          </button>
-        )}
-
-        {task.ongoing && (
-          <button className='btn btn-pause' onClick={handlePause}>
-            Pause
-          </button>
-        )}
-
-        {!task.ongoing && task.timeRemaining < totalTime && task.timeRemaining > 0 && (
-          <button className='btn btn-resume' onClick={handleStart}>
-            Resume
-          </button>
-        )}
-
-        {task.timeRemaining <= 0 && (
-          <button className='btn btn-reset' onClick={completeTask}>
-            Complete
-          </button>
-        )}
+      <div className='pomo-box' onClick={() => task.ongoing ? handlePause() : handleStart()}>
+        <Pomodoro task={task} />
       </div>
     </div>
   );
