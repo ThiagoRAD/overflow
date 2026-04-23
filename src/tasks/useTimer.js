@@ -1,18 +1,24 @@
 import { useRef } from 'react'
 import useTaskStore from './store/useTaskStore'
 import useNotification from '../useNotification'
+import { useNavigate } from 'react-router-dom'
 
 export const useTimer = () => {
 
   const intervalRef = useRef(null);
   const notification = useNotification();
-  const { updateTaskTimeRemaining, updateTask } = useTaskStore();
-  
+  const navigate = useNavigate()
+  const { updateTaskTimeRemaining, updateTask, reorder, increaseStageSize, decreaseStageSize, tasks } = useTaskStore();
 
   const timerFinishedEvent = (task) => {
     const tackledAt = new Date().getTime();
-    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: 0, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
+    const totalTime = task.duration * 60 * 1000;
+    const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: totalTime, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
     updateTask(updatedTask);
+    if (task == tasks[0]) increaseStageSize();
+    else decreaseStageSize();
+    reorder();
+    navigate('/');
     notification.notify(`Task "${task.name}" completed!`);
   };
 

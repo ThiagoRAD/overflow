@@ -7,7 +7,7 @@ import { BiArrowBack, BiTrash } from 'react-icons/bi'
 
 const SelectedTask = () => {
   const id = useParams().id;
-  const {tasks, updateTask, increaseStageSize, decreaseStageSize, reorder, removeTask} = useTaskStore();
+  const {tasks, updateTask, removeTask} = useTaskStore();
   const task = tasks?.find((t) => t.id === id);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
@@ -21,16 +21,8 @@ const SelectedTask = () => {
     }
   };
 
-  const totalTime = task.duration * 60 * 1000;
   
-  const completeTask = () => {
-    const updatedTask = {...task, timeRemaining: totalTime};
-    updateTask(updatedTask);
-    if (task == tasks[0]) increaseStageSize();
-    else decreaseStageSize();
-    reorder();
-    navigate('/');
-  };
+  
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete "${task.name}"?`)) {
