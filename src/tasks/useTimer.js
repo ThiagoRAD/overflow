@@ -13,6 +13,8 @@ export const useTimer = () => {
   const timerFinishedEvent = (task) => {
     const tackledAt = new Date().getTime();
     const totalTime = task.duration * 60 * 1000;
+    console.log(task, tasks)
+    console.log('ids', task.id, tasks[0].id)
     if (task.id == tasks[0].id) increaseStageSize();
     else decreaseStageSize();
     const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: totalTime, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
