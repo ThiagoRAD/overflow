@@ -8,14 +8,13 @@ export const useTimer = () => {
   const intervalRef = useRef(null);
   const notification = useNotification();
   const navigate = useNavigate()
-  const { updateTaskTimeRemaining, updateTask, reorder, increaseStageSize, decreaseStageSize, tasks } = useTaskStore();
+  const { updateTaskTimeRemaining, updateTask, reorder, increaseStageSize, decreaseStageSize } = useTaskStore();
 
-  const timerFinishedEvent = (task) => {
+  const timerFinishedEvent = (task, currentTasks = []) => {
     const tackledAt = new Date().getTime();
     const totalTime = task.duration * 60 * 1000;
-    console.log(task, tasks)
-    console.log('ids', task.id, tasks[0].id)
-    if (task.id == tasks[0].id) increaseStageSize();
+    const firstTaskId = currentTasks[0]?.id;
+    if (task.id === firstTaskId) increaseStageSize();
     else decreaseStageSize();
     const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: totalTime, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
     updateTask(updatedTask);
@@ -29,7 +28,7 @@ export const useTimer = () => {
     if (!tasks || tasks.length === 0) return;
     tasks.filter(t => t.ongoing).forEach(task => {
       if (task.timeRemaining <= 0) {
-        timerFinishedEvent(task);
+        timerFinishedEvent(task, tasks);
       } else {
         updateTaskTimeRemaining(task.id)
       }
