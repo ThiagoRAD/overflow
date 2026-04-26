@@ -1,6 +1,10 @@
+import { BiPause, BiPlay } from 'react-icons/bi'
 import { useTaskColor } from './useTaskColor'
 
 const Pomodoro = ({task}) => {
+  const showPlayIndicator = task.ongoing;
+  const showPauseIndicator = !task.ongoing;
+  const shouldRevealText = showPlayIndicator || showPauseIndicator;
 
   const formatTime = (milliseconds) => {
     const seconds = Math.floor(milliseconds / 1000);
@@ -43,8 +47,27 @@ const Pomodoro = ({task}) => {
           transform='rotate(-90 140 140)'
           style={{transition: 'stroke-dashoffset 1s linear', ...shadowStyle2}}
         />
+        {showPauseIndicator && (
+          <g className='pause-indicator'>
+            <foreignObject x='100' y='100' width='80' height='80'>
+              <div className='state-indicator-icon-wrap'>
+                <BiPause className='state-indicator-icon' />
+              </div>
+            </foreignObject>
+          </g>
+        )}
+        {showPlayIndicator && (
+          <g className='play-indicator'>
+            <foreignObject x='100' y='100' width='80' height='80'>
+              <div className='state-indicator-icon-wrap'>
+                <BiPlay className='state-indicator-icon' />
+              </div>
+            </foreignObject>
+          </g>
+        )}
         <text
-          className='timer-text'
+          key={task.ongoing ? 'timer-ongoing' : 'timer-paused'}
+          className={`timer-text ${shouldRevealText ? 'timer-text-reveal' : ''}`}
           x='140'
           y='140'
           textAnchor='middle'
