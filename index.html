@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/overflow/overflow.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="/overflow/favicon.ico" />
+    <link rel="apple-touch-icon" href="/overflow/apple-touch-icon-180x180.png" sizes="180x180" />
+    <link rel="mask-icon" href="/mask-icon.svg" color="#000000" />
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <title>Overflow</title>
+    <script type="module" crossorigin src="/overflow/assets/index-cl6D_Kos.js"></script>
+    <link rel="stylesheet" crossorigin href="/overflow/assets/index-qdFTMkOw.css">
+  <link rel="manifest" href="/overflow/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/overflow/registerSW.js"></script></head>
+  <body>
+    <svg style="display: none;">
+      <filter id="displacementFilter">
+        <feTurbulence type="turbulence" 
+                baseFrequency="0.01" 
+                numOctaves="2" 
+                result="turbulence" />
+        <feDisplacementMap in="SourceGraphic" scale="200" xChannelSelector="R" yChannelSelector="G"/>   </svg>
+      </filter>
+    <div id="root"></div>
+  </body>
+</html>
