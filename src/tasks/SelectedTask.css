@@ -75,17 +75,17 @@
 
 .timer-text-reveal {
   opacity: 0;
-  animation: timer-text-reveal 0.5s ease-out 2s both;
+  animation: timer-text-reveal 0.5s ease-out 0.5s both;
 }
 
 .play-indicator {
   pointer-events: none;
-  animation: play-indicator-fade 3s ease-out forwards;
+  animation: play-indicator-fade 1s ease-out forwards;
 }
 
 .pause-indicator {
   pointer-events: none;
-  animation: play-indicator-fade 3s ease-out forwards;
+  animation: play-indicator-fade 1s ease-out forwards;
 }
 
 .state-indicator-icon-wrap {
