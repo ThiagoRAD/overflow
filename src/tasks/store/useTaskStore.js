@@ -2,14 +2,6 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import dbStorage from './dbStorage'
 
-const importanceWeight = {
-  1: 1.1,
-  2: 1.2,
-  3: 1.3,
-  4: 1.4,
-  5: 1.5,
-};
-
 const useTaskStore = create(
   persist(
     (set) => ({
@@ -26,15 +18,13 @@ const useTaskStore = create(
             const today = new Date();
             const todayDate = today.getDate();
             const todayTime = today.getTime();
-            const notTheSameDayA = todayDate != new Date(a.tackledAt).getDate()
-            const notTheSameDayB = todayDate != new Date(b.tackledAt).getDate()
-            if(a.type === 'Daily' && notTheSameDayA && b.type === 'Daily' && notTheSameDayB) {
-              const aDifference = todayTime - a.tackledAt;
-              const bDifference = todayTime - b.tackledAt;
-              return aDifference - bDifference;
-            }
-            if(a.type === 'Daily' && notTheSameDayA) return -1;
-            if(b.type === 'Daily' && notTheSameDayB) return 1;
+            const sameDayA = todayDate === new Date(a.tackledAt).getDate()
+            const sameDayB = todayDate === new Date(b.tackledAt).getDate()
+
+            if(a.type === 'Daily' && sameDayA) return 1;
+            if(b.type === 'Daily' && sameDayB) return -1;
+            if(a.type === 'Daily' && !sameDayA && b.type !== 'Daily') return -1;
+            if(b.type === 'Daily' && !sameDayB && a.type !== 'Daily') return 1;
             
             const aDifference = todayTime - a.tackledAt;
             const bDifference = todayTime - b.tackledAt;
