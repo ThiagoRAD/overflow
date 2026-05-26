@@ -28,7 +28,8 @@ const useTaskStore = create(
             
             const aDifference = todayTime - a.tackledAt;
             const bDifference = todayTime - b.tackledAt;
-            return aDifference - bDifference;
+            
+            return bDifference - aDifference;
           });
           return { tasks: sortedTasks };
         });
