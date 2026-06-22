@@ -7,7 +7,10 @@ const useTagsStore = create(
     (set) => ({
       tags: [],
       createTag: (tag) => set((state) => ({ tags: [...state.tags, tag] })),
-      deleteTag: (id) => set((state) => ({ tags: state.tags.filter((tag) => tag.id !== id) })),
+      deleteTag: (name) => set((state) => ({ tags: state.tags.filter((tag) => tag.name !== name) })),
+      toggleTagCollapse: (name) => set((state) => ({
+        tags: state.tags.map((tag) => (tag.name === name ? { ...tag, collapsed: !tag.collapsed } : tag)),
+      })),
       addTaskToTag: (tagName, taskId) => set((state) => ({
         tags: state.tags.map((tag) => {
           console.log(state.tags)

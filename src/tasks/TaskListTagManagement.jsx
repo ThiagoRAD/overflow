@@ -2,10 +2,12 @@ import useTaskStore from './store/useTaskStore';
 import useTagsStore from './store/useTagsStore';
 import {TbTag} from 'react-icons/tb';
 import DraggableTaskItem from './DraggableTaskItem';
+import { MdArrowDropDown } from "react-icons/md";
+import { IoMdArrowDropup } from "react-icons/io";
 
 const TaskListTagManagement = () => {
   const {tasks} = useTaskStore();
-  const {tags, addTaskToTag, removeTaskFromTags} = useTagsStore();
+  const {tags, addTaskToTag, removeTaskFromTags, toggleTagCollapse} = useTagsStore();
 
   const taggedTaskIds = new Set(tags.flatMap((tag) => tag.tasks));
 
@@ -27,12 +29,12 @@ const TaskListTagManagement = () => {
       {tags.map((tag) => (
         <div key={tag.name} className='mb-4' onDragOver={handleTagDragOver} onDrop={(event) => handleTagDrop(event, tag.name)}>
           <h2 style={{color: tag.color}} className='flex items-center gap-0.5 text-xl'>
-            <TbTag /> {tag.name}
+            <div className='flex items-center gap-1 text-xl' onClick={() => toggleTagCollapse(tag.name)}><TbTag /> {tag.name} {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
           </h2>
           {tag.tasks.map((taskId) => {
             console.log(tags)
+            if(tag.collapsed) return null;
             const task = tasks.find((t) => t.id === taskId);
-            console.log("I've found a task", taskId)
             return task ? <DraggableTaskItem key={task.id} task={task} /> : null;
           })}
         </div>

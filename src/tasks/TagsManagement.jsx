@@ -14,7 +14,9 @@ const TagsManagement = () => {
 
   const handleCreateTag = (e) => {
     e.preventDefault()
-    createTag({ name, color, tasks: [] })
+    createTag({ name, color, tasks: [], collapsed: false })
+    setName('')
+    setColor('#ffffff')
   }
 
   return (
