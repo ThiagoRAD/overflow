@@ -98,7 +98,7 @@ const TaskListTagManagement = () => {
               onTouchEnd={() => handleTagTouchEnd(tag.id)}
             >
               <h2 style={{color: tag.color}} className='flex items-center gap-0.5 text-xl'>
-                <div className='flex items-center gap-1 text-xl' onClick={() => handleTagClick(tag.id)}><TbTag /> {tag.name} {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
+                <div className='flex items-center gap-1 text-xl' onClick={() => handleTagClick(tag.id)}><TbTag /> {tag.name} <span className='flex h-3 w-3 items-center justify-center rounded-full border bg-white/10 p-1 font-sans text-[5px] font-normal leading-none text-white' style={{ borderColor: tag.color }}>{tag.tasks.length}</span> {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
               </h2>
             </div>
           </div>
