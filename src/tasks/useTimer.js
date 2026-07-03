@@ -10,6 +10,10 @@ export const useTimer = () => {
   const navigate = useNavigate()
   const { updateTaskTimeRemaining, updateTask, reorder, increaseStageSize, decreaseStageSize } = useTaskStore();
 
+  const moveTaskToArchive = (task) => {
+    useTaskStore.getState().addToArchive(task);
+  }
+
   const timerFinishedEvent = (task, currentTasks = []) => {
     const tackledAt = new Date().getTime();
     const totalTime = task.duration * 60 * 1000;
@@ -17,10 +21,16 @@ export const useTimer = () => {
     if (task.id === firstTaskId) increaseStageSize();
     else decreaseStageSize();
     const updatedTask = {...task, tackledAt, ongoing: false, timeRemaining: totalTime, lastTime: null, timesCompleted: task.timesCompleted ? task.timesCompleted + 1 : 1};
-    updateTask(updatedTask);
-    reorder();
-    navigate('/');
-    notification.notify(`Task "${task.name}" completed!`);
+    if (updatedTask.timesCompleted >= 100) {
+      moveTaskToArchive(updatedTask);
+      navigate('/');
+      notification.notify(`Task "${task.name}" archived!`);
+    } else {
+      updateTask(updatedTask);
+      reorder();
+      navigate('/');
+      notification.notify(`Task "${task.name}" completed!`);
+    }
   };
 
   const updateTasks = () => {
