@@ -91,15 +91,16 @@ const TaskListTagManagement = () => {
               Delete
             </button>
             <div
-              className='relative w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 transition-transform duration-200 touch-pan-y'
+              className='relative flex justify-between items-center w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 transition-transform duration-200 touch-pan-y'
               style={{ transform: `translateX(${openTagId === tag.id ? -DELETE_REVEAL_WIDTH : 0}px)` }}
               onTouchStart={(event) => handleTagTouchStart(event, tag.id)}
               onTouchMove={handleTagTouchMove}
               onTouchEnd={() => handleTagTouchEnd(tag.id)}
             >
               <h2 style={{color: tag.color}} className='flex items-center gap-0.5 text-xl'>
-                <div className='flex items-center gap-1 text-xl' onClick={() => handleTagClick(tag.id)}><TbTag /> {tag.name} <span className='flex h-3 w-3 items-center justify-center rounded-full border bg-white/10 p-1 font-sans text-[5px] font-normal leading-none text-white' style={{ borderColor: tag.color }}>{tag.tasks.length}</span> {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
+                <div className='flex items-center gap-1 text-xl' onClick={() => handleTagClick(tag.id)}><TbTag /> {tag.name}  {tag.collapsed ? <MdArrowDropDown /> : <IoMdArrowDropup />}</div>
               </h2>
+              <span className='flex h-5 w-5 items-center justify-center rounded-full border bg-white/10 p-1 font-sans text-[10px] font-normal leading-none text-white' style={{ borderColor: tag.color }}>{tag.tasks.length}</span>
             </div>
           </div>
           {tag.tasks.map((taskId) => {
