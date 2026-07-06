@@ -5,6 +5,7 @@ import SelectedTask from './tasks/SelectedTask'
 import { useTimer } from './tasks/useTimer'
 import { useEffect } from 'react'
 import TagsManagement from './tasks/TagsManagement'
+import Archive from './tasks/Archive'
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<NextTasks />} />
         <Route path='/create-task' element={<CreateTask />} />
+        <Route path='/archive' element={<Archive />} />
         <Route path='/create-task/:id' element={<CreateTask />} />
         <Route path='/task/:id' element={<SelectedTask />} />
         <Route path='/task/:id' element={<SelectedTask />} />

@@ -5,6 +5,7 @@ import EditModeButton from '../components/EditModeButton'
 import useEditStore from './store/useEditStore'
 import { useEffect } from 'react'
 import TagsManagementButton from '../components/TagsManagementButton'
+import ArchiveButton from '../components/ArchiveButton'
 
 const NextTasks = () => {
 
@@ -17,6 +18,7 @@ const NextTasks = () => {
   return (
     <div>
       <Header>
+        <ArchiveButton />
         <EditModeButton />
         <TagsManagementButton />
         <CreateTaskButton />
